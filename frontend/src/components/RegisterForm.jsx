@@ -1,50 +1,69 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// import TextField from '@mui/material/TextField';
+// import PropTypes from 'prop-types';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+// import { styled } from '@mui/material/styles'
+import { apiCall } from './Helper';
+import styles from './Style.module.css';
+import { useNavigate } from 'react-router-dom';
 
-function RegisterForm ({ submit }) {
+function RegisterForm () {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [name, setName] = React.useState('');
+  const navigate = useNavigate();
 
   const onSubmit = () => {
-    submit(email, password, name);
+    apiCall('admin/auth/register', 'POST', { email, password, name }).then(
+      (data) => {
+        localStorage.setItem('token', data.token);
+        console.log(data);
+        navigate('/dashboard');
+      }
+    );
   };
 
   return (
-    <>
-      {/* <TextField
+    <Box className={styles.flexCol} component="form">
+      <TextField
+        required
+        id="outlined-required"
+        label="Email"
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      />
+      <TextField
         id="outlined-password-input"
         label="Password"
         type="password"
-        autoComplete="current-password"
-      /> */}
-      <form role={'form'}></form>
-      <label htmlFor="email">Email:</label>
-      <input
-        id="email"
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <label htmlFor="password">Password:</label>
-      <input
-        id="password"
-        type="password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <br />
-      <label htmlFor="name">Name:</label>
-      <input id="name" type="text" onChange={(e) => setName(e.target.value)} />
-      <br />
-      {/* <Button variant="text">Text</Button> */}
-      <button onClick={onSubmit}>Register</button>
-    </>
+      <TextField
+        required
+        id="outlined-required"
+        label="Name"
+        onChange={(e) => setName(e.target.value)}
+      />
+      <Box>
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={() => navigate('/login')}
+        >
+          Cancel
+        </Button>
+        <Button variant="outlined" onClick={onSubmit}>
+          Register
+        </Button>
+      </Box>
+    </Box>
   );
 }
 
-RegisterForm.propTypes = {
-  submit: PropTypes.func
-};
+// RegisterForm.propTypes = {
+//   submit: PropTypes.func
+// };
 
 export default RegisterForm;

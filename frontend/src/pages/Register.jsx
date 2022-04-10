@@ -1,32 +1,15 @@
 import React from 'react';
 import RegisterForm from '../components/RegisterForm';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Register () {
   return (
     <>
+      <nav>
+        <Link to="/register">Register</Link> |<Link to="/login">Login</Link>
+      </nav>
       <h1>Register</h1>
-      <RegisterForm
-        submit={async (email, password, name) => {
-          const response = await fetch(
-            'http://localhost:5005/admin/auth/register',
-            {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/json'
-              },
-              body: JSON.stringify({
-                email,
-                password,
-                name
-              })
-            }
-          );
-          const data = await response.json();
-          localStorage.setItem('token', data.token);
-          <Navigate to="/quiz/new" />;
-        }}
-      />
+      <RegisterForm />
     </>
   );
 }
