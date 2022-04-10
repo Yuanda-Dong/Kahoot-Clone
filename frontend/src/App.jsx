@@ -1,15 +1,16 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React from 'react';
+import './App.css';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import QuizNew from "./pages/QuizNew";
+import Register from './pages/Register';
+import Login from './pages/Login';
+import QuizNew from './pages/QuizNew';
 
-function App() {
+function App () {
   return (
     <>
-      <div>Hey</div>
+      <div>HeyYo</div>
+
       <BrowserRouter>
         <nav>
           <Link to="/register">Register</Link> |<Link to="/login">Login</Link>

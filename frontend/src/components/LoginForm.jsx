@@ -1,9 +1,12 @@
-function LoginForm() {
+import React from 'react';
+function LoginForm () {
   return (
     <>
-      Email: <input type="text" />
+      Email:
+      <input type="text" />
       <br />
-      Password: <input type="text" />
+      Password:
+      <input type="text" />
       <br />
     </>
   );

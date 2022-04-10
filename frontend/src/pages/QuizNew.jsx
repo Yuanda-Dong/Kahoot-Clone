@@ -1,25 +1,25 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function QuizNew() {
+function QuizNew () {
   const navigate = useNavigate();
-  const [name, setName] = React.useState("");
-  const token = localStorage.getItem("token");
+  const [name, setName] = React.useState('');
+  const token = localStorage.getItem('token');
   React.useEffect(() => {
     if (!token) {
-      navigate("/login");
+      navigate('/login');
     }
   });
 
   const createQuiz = async () => {
     try {
-      const response = await fetch("http://localhost:5005/admin/quiz/new", {
-        method: "POST",
+      const response = await fetch('http://localhost:5005/admin/quiz/new', {
+        method: 'POST',
         headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name })
       });
       if (response.status === 400) {
         console.log(await response.text());

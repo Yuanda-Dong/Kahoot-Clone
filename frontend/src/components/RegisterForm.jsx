@@ -1,9 +1,9 @@
-import React from "react";
-
-function RegisterForm({ submit }) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [name, setName] = React.useState("");
+import React from 'react';
+import PropTypes from 'prop-types';
+function RegisterForm ({ submit }) {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
 
   const onSubmit = () => {
     submit(email, password, name);
@@ -24,5 +24,9 @@ function RegisterForm({ submit }) {
     </>
   );
 }
+
+RegisterForm.propTypes = {
+  submit: PropTypes.func
+};
 
 export default RegisterForm;
