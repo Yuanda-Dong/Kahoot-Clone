@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import TextField from '@mui/material/TextField';
+
 function RegisterForm ({ submit }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -11,15 +13,31 @@ function RegisterForm ({ submit }) {
 
   return (
     <>
-      Email:
-      <input type="text" onChange={(e) => setEmail(e.target.value)} />
+      {/* <TextField
+        id="outlined-password-input"
+        label="Password"
+        type="password"
+        autoComplete="current-password"
+      /> */}
+      <form role={'form'}></form>
+      <label htmlFor="email">Email:</label>
+      <input
+        id="email"
+        type="email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <br />
-      Password:
-      <input type="text" onChange={(e) => setPassword(e.target.value)} />
+      <label htmlFor="password">Password:</label>
+      <input
+        id="password"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <br />
-      Name:
-      <input type="text" onChange={(e) => setName(e.target.value)} />
+      <label htmlFor="name">Name:</label>
+      <input id="name" type="text" onChange={(e) => setName(e.target.value)} />
       <br />
+      {/* <Button variant="text">Text</Button> */}
       <button onClick={onSubmit}>Register</button>
     </>
   );

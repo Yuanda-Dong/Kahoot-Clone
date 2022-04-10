@@ -9,8 +9,6 @@ import QuizNew from './pages/QuizNew';
 function App () {
   return (
     <>
-      <div>HeyYo</div>
-
       <BrowserRouter>
         <nav>
           <Link to="/register">Register</Link> |<Link to="/login">Login</Link>
