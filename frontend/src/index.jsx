@@ -7,5 +7,12 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
+// const rootElement = document.getElementById('root');
+// const root = createRoot(rootElement);
+// root.render(
+//   <StrictMode>
+//     <App />
+//   </StrictMode>,
+// );

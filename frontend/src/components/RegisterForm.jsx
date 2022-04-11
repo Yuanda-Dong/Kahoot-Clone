@@ -28,21 +28,21 @@ function RegisterForm () {
     <Box className={styles.flexCol} component="form">
       <TextField
         required
-        id="outlined-required"
+        id="email"
         label="Email"
         onChange={(e) => {
           setEmail(e.target.value);
         }}
       />
       <TextField
-        id="outlined-password-input"
+        id="password"
         label="Password"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
       />
       <TextField
         required
-        id="outlined-required"
+        id="name"
         label="Name"
         onChange={(e) => setName(e.target.value)}
       />
