@@ -4,15 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 function LinkTab (props) {
-  return (
-    <Tab
-      component="a"
-      // onClick={(event) => {
-      //   // event.preventDefault();
-      // }}
-      {...props}
-    />
-  );
+  return <Tab component="a" {...props} />;
 }
 
 export default function NavTabs () {
@@ -24,7 +16,7 @@ export default function NavTabs () {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
+      <Tabs value={value} onChange={handleChange} aria-label="navigation bar">
         <LinkTab label="Dashboard" href="/dashboard" />
         <LinkTab label="Report" href="/report" />
         <LinkTab label="Log out" href="/logout" />
