@@ -7,42 +7,78 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import { apiCall } from '../components/Helper';
 
 export default function QuizDiv (props) {
   const deleteGame = () => {
-    apiCall(`/admin/quiz/${props.userId}`, 'DELETE', {});
+    handleClose();
+    apiCall(`admin/quiz/${props.userId}`, 'DELETE', {});
+    props.update(true);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {props.name}
-        </Typography>
-        {/* <Typography variant="body2" color="text.secondary">
+    <div>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {props.name}
+          </Typography>
+          {/* <Typography variant="body2" color="text.secondary">
           Lizards are a widespread group of squamate reptiles, with over 6,000
           species, ranging across all continents except Antarctica
         </Typography> */}
-      </CardContent>
-      <CardMedia
-        component="img"
-        alt="quiz image"
-        height="140"
-        image={props.thumbnail}
-      />
-      <CardActions>
-        <Button size="small" color="error" onClick={deleteGame}>
-          Delete
-        </Button>
-        <Button size="small">Edit</Button>
-      </CardActions>
-    </Card>
+        </CardContent>
+        <CardMedia
+          component="img"
+          alt="quiz image"
+          height="140"
+          image={props.thumbnail}
+        />
+        <CardActions>
+          <Button size="small" color="error" onClick={handleClickOpen}>
+            Delete
+          </Button>
+          <Button size="small">Edit</Button>
+        </CardActions>
+      </Card>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Are you sure you want to delete this quiz?'}
+        </DialogTitle>
+
+        <DialogActions>
+          <Button onClick={handleClose}>No</Button>
+          <Button onClick={deleteGame} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
 
 QuizDiv.propTypes = {
   userId: PropTypes.number,
   thumbnail: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
+  update: PropTypes.func
 };

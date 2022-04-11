@@ -33,6 +33,7 @@ function Dashboard () {
             createdAt={quiz.createdAt}
             name={quiz.name}
             thumbnail={quiz.thumbnail}
+            update={setquizModifed}
           />
         );
       })}
