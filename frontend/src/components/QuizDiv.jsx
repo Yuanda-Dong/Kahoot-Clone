@@ -62,7 +62,7 @@ export default function QuizDiv (props) {
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Are you sure you want to delete this quiz?'}
+          {`Are you sure you want to delete the quiz: ${props.name.toUpperCase()}?`}
         </DialogTitle>
 
         <DialogActions>
