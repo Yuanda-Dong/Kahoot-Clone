@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import DropDown from '../components/DropDown';
 import { apiCall } from '../components/Helper';
 import TextField from '@mui/material/TextField';
+import { NavTabs } from '../components/NavTab';
 
 export default function QuestionEdit () {
   const params = useParams();
@@ -72,6 +73,7 @@ export default function QuestionEdit () {
 
   return (
     <>
+      <NavTabs />
       <TextField
         id="Question"
         label="Question"
