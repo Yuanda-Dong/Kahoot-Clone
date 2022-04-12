@@ -29,6 +29,7 @@ function Dashboard () {
         return (
           <QuizDiv
             key={quiz.id}
+            active={quiz.active}
             quizId={quiz.id}
             createdAt={quiz.createdAt}
             name={quiz.name}

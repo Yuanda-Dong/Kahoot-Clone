@@ -18,6 +18,9 @@ function App () {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
+          {/* click "copy link", start a game */}
+          {/* <Route path="/play.{sessionID}" element={<PlayGame />} /> */}
+
           {/* games, navbar */}
           <Route path="/dashboard" element={<Dashboard />} />
 

@@ -1,0 +1,1 @@
+- have a dialog popup when deleting the quiz
