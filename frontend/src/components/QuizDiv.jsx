@@ -63,11 +63,10 @@ export default function QuizDiv (props) {
       setClicked(false);
       apiCall(`admin/quiz/${props.quizId}/end`, 'POST', {}).then(() => {
         setStopDialog(true); // show popup for stoping a game
-        console.log('ended game');
       });
     }
   }, [gameOn]);
-  console.log(stopDialog);
+
   return (
     <div>
       <Card sx={{ maxWidth: 345 }}>
@@ -171,7 +170,6 @@ export default function QuizDiv (props) {
     </div>
   );
 }
-
 QuizDiv.propTypes = {
   active: PropTypes.number,
   quizId: PropTypes.number,

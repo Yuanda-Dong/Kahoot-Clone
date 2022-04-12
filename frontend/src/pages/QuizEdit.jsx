@@ -1,23 +1,46 @@
-import { useParams } from 'react-router-dom';
-// import react from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import React from 'react';
-import DropDown from '../components/DropDown';
 import QuestionCard from '../components/QuestionCard';
+import { apiCall } from '../components/Helper';
+
+import Button from '@mui/material/Button';
 
 export default function QuizEdit () {
   const params = useParams();
-  console.log(params);
-  const [age, setAge] = React.useState('1');
+  const navigate = useNavigate();
+  const [quiz, setQuiz] = React.useState('');
+  const [questions, setQuestions] = React.useState([]);
+  const [questionDeleted, setQuestionDeleted] = React.useState(false);
+  React.useEffect(() => {
+    apiCall(`admin/quiz/${params.quizid}`, 'GET', {}).then((data) => {
+      setQuiz(data);
+      setQuestions(data.questions);
+      setQuestionDeleted(false);
+    });
+  }, [questionDeleted]);
+
   return (
     <>
-      <DropDown
-        dropId="age"
-        options={['1', '2', '3']}
-        target={age}
-        handle={setAge}
-      ></DropDown>
-      {console.log(age)}
-      <QuestionCard />
+      <Button
+        variant="outlined"
+        onClick={() => {
+          navigate(`/quiz/${params.quizid}/${questions.length}`);
+        }}
+      >
+        Create New Question
+      </Button>
+
+      {questions.map((q, idx) => {
+        return (
+          <QuestionCard
+            key={idx}
+            quizID={params.quizid}
+            questionID={idx}
+            quiz={quiz}
+            deleteLive={setQuestionDeleted}
+          />
+        );
+      })}
     </>
   );
 }
