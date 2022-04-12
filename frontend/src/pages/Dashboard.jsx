@@ -29,7 +29,7 @@ function Dashboard () {
         return (
           <QuizDiv
             key={quiz.id}
-            userId={quiz.id}
+            quizId={quiz.id}
             createdAt={quiz.createdAt}
             name={quiz.name}
             thumbnail={quiz.thumbnail}

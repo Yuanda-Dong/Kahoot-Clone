@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import { useNavigate } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -16,10 +16,10 @@ import { apiCall } from '../components/Helper';
 export default function QuizDiv (props) {
   const deleteGame = () => {
     handleClose();
-    apiCall(`admin/quiz/${props.userId}`, 'DELETE', {});
+    apiCall(`admin/quiz/${props.quizId}`, 'DELETE', {});
     props.update(true);
   };
-
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -28,6 +28,10 @@ export default function QuizDiv (props) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleEdit = () => {
+    navigate('/quiz/' + props.quizId);
   };
 
   return (
@@ -52,7 +56,9 @@ export default function QuizDiv (props) {
           <Button size="small" color="error" onClick={handleClickOpen}>
             Delete
           </Button>
-          <Button size="small">Edit</Button>
+          <Button size="small" onClick={handleEdit}>
+            Edit
+          </Button>
         </CardActions>
       </Card>
 
@@ -77,7 +83,7 @@ export default function QuizDiv (props) {
 }
 
 QuizDiv.propTypes = {
-  userId: PropTypes.number,
+  quizId: PropTypes.number,
   thumbnail: PropTypes.string,
   name: PropTypes.string,
   update: PropTypes.func

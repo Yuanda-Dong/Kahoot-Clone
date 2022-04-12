@@ -7,13 +7,14 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import QuizNew from './pages/QuizNew';
+import QuizEdit from './pages/QuizEdit';
 
 function App () {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Welcome />}></Route>
+          <Route path="/" element={<Welcome />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
@@ -24,10 +25,13 @@ function App () {
           <Route path="/quiz/new" element={<QuizNew />} />
 
           {/* click "edit a Quiz", need a quizID in route */}
-          {/* <Route path="/quiz$quizID=1" element={<QuizEdit />} /> */}
+          <Route path="/quiz/:quizid" element={<QuizEdit />} />
 
           {/* click "edit a question in a quiz", need a quizID in route */}
-          {/* <Route path="/quiz $quizID=1 $questionID=123" element={<QuizEdit />} /> */}
+          {/* <Route
+            path="/quiz $quizID=1 $questionID=123"
+            element={<QuizEdit />}
+          /> */}
         </Routes>
       </BrowserRouter>
     </>
