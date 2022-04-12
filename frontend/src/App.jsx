@@ -10,6 +10,7 @@ import QuizNew from './pages/QuizNew';
 import QuizEdit from './pages/QuizEdit';
 import Result from './pages/Result';
 import Report from './pages/Report';
+import QuestionEdit from './pages/QuestionEdit';
 
 function App () {
   return (
@@ -43,6 +44,7 @@ function App () {
 
           {/* show report page for for all past sessions */}
           <Route path="/report" element={<Report />} />
+          <Route path="/quiz/:quizid/:questionid" element={<QuestionEdit />} />
         </Routes>
       </BrowserRouter>
     </div>

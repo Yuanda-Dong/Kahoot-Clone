@@ -10,7 +10,7 @@ export default function DropDown (props) {
     props.handle(event.target.value);
   };
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, mt: 1.5, mb: 1.5, width: 250 }}>
       <FormControl fullWidth>
         <InputLabel
           id={`${props.dropId}-label`}
