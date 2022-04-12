@@ -19,7 +19,10 @@ function App () {
           <Route path="/login" element={<Login />} />
 
           {/* click "copy link", start a game */}
-          {/* <Route path="/play.{sessionID}" element={<PlayGame />} /> */}
+          {/* <Route path="/play/{sessionID}" element={<PlayGame />} /> */}
+
+          {/* show result page */}
+          {/* <Route path="/result/{sessionID}" element={<PlayGame />} /> */}
 
           {/* games, navbar */}
           <Route path="/dashboard" element={<Dashboard />} />

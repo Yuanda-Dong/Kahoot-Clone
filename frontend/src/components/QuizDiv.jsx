@@ -75,10 +75,6 @@ export default function QuizDiv (props) {
           <Typography gutterBottom variant="h5" component="div">
             {props.name}
           </Typography>
-          {/* <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography> */}
         </CardContent>
         <CardMedia
           component="img"
@@ -104,6 +100,7 @@ export default function QuizDiv (props) {
         </CardActions>
       </Card>
 
+      {/* alert dialog for deleteing a quiz */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -120,6 +117,8 @@ export default function QuizDiv (props) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Dialog for showing session ID */}
 
       <Dialog
         open={sessionID !== 0}
@@ -150,7 +149,6 @@ export default function QuizDiv (props) {
         open={stopDialog}
         onClose={() => setStopDialog(false)}
         aria-labelledby="game-stop-dialog-title"
-        aria-describedby="game-stop-dialog-description"
       >
         <DialogTitle id="game-stop-dialog-title">
           {'Would you like to view the results?'}
@@ -160,7 +158,7 @@ export default function QuizDiv (props) {
           <Button
             autoFocus
             onClick={() => {
-              navigate('/result$' + sessionID);
+              navigate('/result/' + sessionID);
             }}
           >
             Yes
