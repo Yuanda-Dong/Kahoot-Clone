@@ -1,18 +1,27 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import DropDown from '../components/DropDown';
-import { apiCall } from '../components/Helper';
+import { apiCall, fileToDataUrl } from '../components/Helper';
 import TextField from '@mui/material/TextField';
 import { NavTabs } from '../components/NavTab';
-
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
 export default function QuestionEdit () {
   const params = useParams();
   const quizid = params.quizid;
   const questionid = params.questionid;
-  const [questions, setQuestions] = React.useState([]);
-  const [question, setQuestion] = React.useState({});
-  const [answers, setAnswers] = React.useState([-1, -2]);
-  // const [correct, setCorrect] = React.useState([]);
+  const navigate = useNavigate();
+  // const [questions, setQuestions] = React.useState([]);
+  const [question, setQuestion] = React.useState({
+    options: ['', ''],
+    correctAnswer: [false, false],
+    duration: 5,
+    credit: 1,
+    type: 'Single choice'
+  });
+  const [answers, setAnswers] = React.useState(['', '']);
+  const [correct, setCorrect] = React.useState([false, false]);
+  const [num, setNum] = React.useState(2);
 
   const handleType = (val) => {
     const newQuestion = { ...question };
@@ -43,33 +52,96 @@ export default function QuestionEdit () {
     newQuestion.media = event.target.value;
     setQuestion(newQuestion);
   };
+
+  const handleCorrect = (idx) => {
+    const newCorrect = [...correct];
+    newCorrect[idx] = !newCorrect[idx];
+    setCorrect(newCorrect);
+  };
+  const handleAnswer = (event, idx) => {
+    const newAnswer = [...answers];
+    newAnswer[idx] = event.target.value;
+    setAnswers(newAnswer);
+  };
+  const handleImage = (event) => {
+    const file = event.target.files[0];
+    fileToDataUrl(file).then((data) => {
+      const newQuestion = { ...question };
+      newQuestion.media = data;
+      setQuestion(newQuestion);
+    });
+  };
+  const removeAns = () => {
+    if (num > 2) {
+      setNum(num - 1);
+      // const newCorrect = [...correct];
+      // const newAnswer = [...answers];
+      setCorrect(correct.slice(0, correct.length - 1));
+      setAnswers(answers.slice(0, answers.length - 1));
+    }
+  };
   //   console.log(quiz);
+
+  const addMore = () => {
+    if (num < 6) {
+      setNum(num + 1);
+      const newCorrect = [...correct];
+      const newAnswer = [...answers];
+      newCorrect.push(false);
+      newAnswer.push('');
+      setCorrect(newCorrect);
+      setAnswers(newAnswer);
+    }
+  };
+  const Cancel = () => {
+    navigate('/quiz/' + quizid);
+  };
   useEffect(() => {
     apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
-      setQuestions(body.questions);
-      if (body.questions.options) {
-        setAnswers(body.questions);
-      }
+      setQuestion(
+        body.questions[questionid] ? body.questions[questionid] : question
+      );
+      // setQuestions(body.questions);
+
+      setAnswers(
+        body.questions[questionid]
+          ? body.questions[questionid].options
+          : answers
+      );
+      setCorrect(
+        body.questions[questionid]
+          ? body.questions[questionid].correctAnswer
+          : correct
+      );
+      setNum(
+        body.questions[questionid]
+          ? body.questions[questionid].options.length
+          : 2
+      );
+      // }
     });
   }, []);
 
-  useEffect(() => {
-    const newquestions = [...questions];
-    if (questionid + 1 > questions.length) {
-      newquestions.push(question);
-      setQuestions(newquestions);
-    } else {
-      newquestions[questionid] = question;
-      setQuestions(newquestions);
-    }
-  }, [question]);
+  const Submit = () => {
+    apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
+      body.questions[questionid] = question;
+      if (questionid === body.questions.length) {
+        body.questions.push(question);
+      } else {
+        body.questions[questionid] = question;
+      }
+      apiCall(`admin/quiz/${quizid}`, 'PUT', body);
+      navigate('/quiz/' + quizid);
+    });
+  };
 
   useEffect(() => {
-    apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
-      body.questions = questions;
-      apiCall(`admin/quiz/${quizid}`, 'PUT', body);
-    });
-  }, [questions]);
+    // const newquestions = [...questions];
+    question.options = answers;
+    question.correctAnswer = correct;
+    // newquestions[questionid] = question;
+    // setQuestions(newquestions);
+  }, [answers, correct]);
 
   return (
     <>
@@ -103,25 +175,56 @@ export default function QuestionEdit () {
         handle={handleCredit}
       ></DropDown>
 
-      <TextField
-        id="Media upload"
-        label="Media upload"
-        variant="outlined"
-        value={question.media ? question.media : ''}
-        sx={{ width: 500 }}
-        onChange={handleMedia}
-      />
-      {answers.map((e) => (
+      <div>
         <TextField
-          key={e}
-          // id="Media upload"
-          // label="Media upload"
-          // variant="outlined"
-          // value={question.media ? question.media : ''}
-          sx={{ width: 500 }}
-          // onChange={handleMedia}
+          id="Media upload"
+          label="Youtube link / encoded image"
+          variant="outlined"
+          value={question.media ? question.media : ''}
+          sx={{ width: 500, mr: 2 }}
+          onChange={handleMedia}
         />
+        <Button variant="contained" component="label">
+          Upload Image
+          <input
+            type="file"
+            hidden
+            accept="image/jpeg, image/png, image/jpg"
+            onChange={handleImage}
+          />
+        </Button>
+      </div>
+
+      {answers.map((e, idx) => (
+        <span key={idx}>
+          <TextField
+            value={e}
+            label={`Answer ${idx + 1}`}
+            sx={{ width: 500, mt: 1.5, mb: 1.5 }}
+            onChange={(event) => handleAnswer(event, idx)}
+          />
+          <Checkbox onClick={() => handleCorrect(idx)} />
+        </span>
       ))}
+      <div>
+        <Button variant="contained" onClick={addMore}>
+          Add More Answers [Max:6]
+        </Button>
+        <Button variant="contained" color="error" onClick={removeAns}>
+          Remove Last Answer
+        </Button>
+      </div>
+      <Button
+        variant="contained"
+        color="success"
+        onClick={Submit}
+        sx={{ mt: 1.5 }}
+      >
+        Submit
+      </Button>
+      <Button variant="contained" onClick={Cancel} sx={{ mt: 1.5 }}>
+        Cancel
+      </Button>
     </>
   );
 }
