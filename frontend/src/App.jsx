@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import QuizNew from './pages/QuizNew';
 import QuizEdit from './pages/QuizEdit';
+import Result from './pages/Result';
+import Report from './pages/Report';
 
 function App () {
   return (
@@ -17,12 +19,6 @@ function App () {
           <Route path="/" element={<Welcome />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-
-          {/* click "copy link", start a game */}
-          {/* <Route path="/play/{sessionID}" element={<PlayGame />} /> */}
-
-          {/* show result page */}
-          {/* <Route path="/result/{sessionID}" element={<PlayGame />} /> */}
 
           {/* games, navbar */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -38,6 +34,15 @@ function App () {
             path="/quiz $quizID=1 $questionID=123"
             element={<QuizEdit />}
           /> */}
+
+          {/* click "copy link", start a game */}
+          {/* <Route path="/play/{sessionID}" element={<PlayGame />} /> */}
+
+          {/* show result page for one session */}
+          <Route path="/result/:sessionID" element={<Result />} />
+
+          {/* show report page for for all past sessions */}
+          <Route path="/report" element={<Report />} />
         </Routes>
       </BrowserRouter>
     </div>

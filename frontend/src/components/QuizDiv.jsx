@@ -82,12 +82,6 @@ export default function QuizDiv (props) {
           image={props.thumbnail}
         />
         <CardActions>
-          <Button size="small" color="error" onClick={handleClickOpen}>
-            Delete
-          </Button>
-          <Button size="small" onClick={handleEdit}>
-            Edit
-          </Button>
           <Button
             size="small"
             variant="contained"
@@ -95,6 +89,13 @@ export default function QuizDiv (props) {
             onClick={handleGameOn}
           >
             {gameOn ? <>Stop</> : <>Start</>}
+          </Button>
+
+          <Button size="small" onClick={handleEdit}>
+            Edit
+          </Button>
+          <Button size="small" color="error" onClick={handleClickOpen}>
+            Delete
           </Button>
         </CardActions>
       </Card>
@@ -110,10 +111,10 @@ export default function QuizDiv (props) {
         </DialogTitle>
 
         <DialogActions>
-          <Button onClick={handleClose}>No</Button>
           <Button onClick={deleteGame} autoFocus>
             Yes
           </Button>
+          <Button onClick={handleClose}>No</Button>
         </DialogActions>
       </Dialog>
 

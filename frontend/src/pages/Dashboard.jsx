@@ -4,6 +4,7 @@ import { NavTabs } from '../components/NavTab';
 import QuizDiv from '../components/QuizDiv';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import styles from '../components/Style.module.css';
 
 function Dashboard () {
   const navigate = useNavigate();
@@ -26,10 +27,13 @@ function Dashboard () {
   return (
     <>
       <NavTabs />
-      <Button variant="outlined" onClick={() => navigate('/quiz/new')}>
+      <Button
+        className={styles.buttonSpace}
+        variant="outlined"
+        onClick={() => navigate('/quiz/new')}
+      >
         Create New Quiz
       </Button>
-
       {quizData.map((quiz) => {
         return (
           <QuizDiv

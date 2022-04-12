@@ -3,6 +3,7 @@ import React from 'react';
 import { NavTabs } from '../components/NavTab';
 import QuestionCard from '../components/QuestionCard';
 import { apiCall } from '../components/Helper';
+import styles from '../components/Style.module.css';
 
 import Button from '@mui/material/Button';
 
@@ -30,6 +31,7 @@ export default function QuizEdit () {
     <>
       <NavTabs />
       <Button
+        className={styles.buttonSpace}
         variant="outlined"
         onClick={() => {
           navigate(`/quiz/${params.quizid}/${questions.length}`);

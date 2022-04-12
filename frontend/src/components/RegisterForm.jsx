@@ -46,16 +46,16 @@ function RegisterForm () {
         label="Name"
         onChange={(e) => setName(e.target.value)}
       />
-      <Box>
+      <Box className={`${styles.alignRight} ${styles.buttonSpace}`}>
+        <Button variant="outlined" onClick={onSubmit}>
+          Register
+        </Button>
         <Button
           variant="outlined"
           color="error"
           onClick={() => navigate('/login')}
         >
           Cancel
-        </Button>
-        <Button variant="outlined" onClick={onSubmit}>
-          Register
         </Button>
       </Box>
     </Box>

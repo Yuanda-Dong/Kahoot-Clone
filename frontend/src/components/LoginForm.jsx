@@ -37,8 +37,12 @@ function LoginForm () {
         type="password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Box>
-        <Button variant="outlined" onClick={onLogin}>
+      <Box className={styles.alignRight}>
+        <Button
+          className={styles.buttonSpace}
+          variant="outlined"
+          onClick={onLogin}
+        >
           Login
         </Button>
       </Box>
