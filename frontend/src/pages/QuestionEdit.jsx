@@ -55,8 +55,7 @@ export default function QuestionEdit () {
   useEffect(() => {
     apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
       body.questions = questions;
-      // console.log(typeof body);
-      apiCall(`admin/quiz${quizid}`, 'PUT', body);
+      apiCall(`admin/quiz/${quizid}`, 'PUT', body);
     });
   }, [questions]);
 
