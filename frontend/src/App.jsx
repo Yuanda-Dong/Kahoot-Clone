@@ -11,7 +11,7 @@ import QuizEdit from './pages/QuizEdit';
 
 function App () {
   return (
-    <>
+    <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome />} />
@@ -37,7 +37,7 @@ function App () {
           /> */}
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
