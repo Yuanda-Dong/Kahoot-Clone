@@ -1,6 +1,6 @@
 import React from 'react';
 import { apiCall } from '../components/Helper';
-import NavTabs from '../components/NavTab';
+import { NavTabs } from '../components/NavTab';
 import QuizDiv from '../components/QuizDiv';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';

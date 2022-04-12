@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiCall } from '../components/Helper';
-import NavTabs from '../components/NavTab';
+import { NavTabs } from '../components/NavTab';
 
 function QuizNew () {
   const navigate = useNavigate();

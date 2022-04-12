@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import React from 'react';
-import NavTabs from '../components/NavTab';
+import { NavTabs } from '../components/NavTab';
 import QuestionCard from '../components/QuestionCard';
 import { apiCall } from '../components/Helper';
 

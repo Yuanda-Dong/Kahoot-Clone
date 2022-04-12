@@ -1,14 +1,13 @@
 import LoginForm from '../components/LoginForm';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavTabLogin } from '../components/NavTab';
 
 function Login () {
   localStorage.setItem('authToken', '');
+
   return (
     <>
-      <nav>
-        <Link to="/register">Register</Link> |<Link to="/login">Login</Link>
-      </nav>
+      <NavTabLogin />
       <h1>Login</h1>
       <LoginForm />
     </>

@@ -8,7 +8,7 @@ function LinkTab (props) {
   return <Tab component="a" {...props} />;
 }
 
-export default function NavTabs () {
+export function NavTabs () {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -25,6 +25,23 @@ export default function NavTabs () {
         <LinkTab label="Dashboard" href="/dashboard" />
         <LinkTab label="Report" href="/report" />
         <LinkTab label="Log out" href="/login" onClick={logOut} />
+      </Tabs>
+    </Box>
+  );
+}
+
+export function NavTabLogin () {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Tabs value={value} onChange={handleChange} aria-label="navigation bar">
+        <LinkTab label="Login" href="/login" />
+        <LinkTab label="Register" href="/register" />
       </Tabs>
     </Box>
   );
