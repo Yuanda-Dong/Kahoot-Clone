@@ -12,7 +12,7 @@ import { apiCall } from './Helper';
 export default function QuestionCard (props) {
   const navigate = useNavigate();
   const navigateToQuestionEdit = () => {
-    navigate(`/quiz/:${props.quizID}/:${props.questionID}`);
+    navigate(`/quiz/${props.quizID}/${props.questionID}`);
   };
 
   const deleteQuestion = () => {

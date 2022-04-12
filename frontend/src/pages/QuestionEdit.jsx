@@ -10,6 +10,8 @@ export default function QuestionEdit () {
   const questionid = params.questionid;
   const [questions, setQuestions] = React.useState([]);
   const [question, setQuestion] = React.useState({});
+  const [answers, setAnswers] = React.useState([-1, -2]);
+  // const [correct, setCorrect] = React.useState([]);
 
   const handleType = (val) => {
     const newQuestion = { ...question };
@@ -34,10 +36,19 @@ export default function QuestionEdit () {
     newQuestion.question = event.target.value;
     setQuestion(newQuestion);
   };
+
+  const handleMedia = (event) => {
+    const newQuestion = { ...question };
+    newQuestion.media = event.target.value;
+    setQuestion(newQuestion);
+  };
   //   console.log(quiz);
   useEffect(() => {
     apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
       setQuestions(body.questions);
+      if (body.questions.options) {
+        setAnswers(body.questions);
+      }
     });
   }, []);
 
@@ -89,6 +100,26 @@ export default function QuestionEdit () {
         target={question.credit ? question.credit : 1}
         handle={handleCredit}
       ></DropDown>
+
+      <TextField
+        id="Media upload"
+        label="Media upload"
+        variant="outlined"
+        value={question.media ? question.media : ''}
+        sx={{ width: 500 }}
+        onChange={handleMedia}
+      />
+      {answers.map((e) => (
+        <TextField
+          key={e}
+          // id="Media upload"
+          // label="Media upload"
+          // variant="outlined"
+          // value={question.media ? question.media : ''}
+          sx={{ width: 500 }}
+          // onChange={handleMedia}
+        />
+      ))}
     </>
   );
 }

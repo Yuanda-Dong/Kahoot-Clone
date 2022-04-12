@@ -44,7 +44,7 @@ export default function QuizEdit () {
         return (
           <QuestionCard
             key={idx}
-            quizID={params.quizid}
+            quizID={parseInt(params.quizid)}
             questionID={idx}
             quiz={quiz}
             deleteLive={setQuestionDeleted}
