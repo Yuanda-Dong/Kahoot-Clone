@@ -1,16 +1,19 @@
+.page {
+  margin: 0 5%;
+}
+
 .flexCol {
   margin: 20px;
   display: flex;
   flex-direction: column;
 }
 
-.buttonSpace {
+.space {
   /* margin: 5% 0; */
   margin: 20px 0 !important;
 }
 
-.alignRight {
+.align {
   display: flex;
-  justify-content: flex-end;
   justify-content: space-between;
 }

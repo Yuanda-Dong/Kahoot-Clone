@@ -32,17 +32,14 @@ function LoginForm () {
         }}
       />
       <TextField
+        className={styles.space}
         id="outlined-password-input"
         label="Password"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Box className={styles.alignRight}>
-        <Button
-          className={styles.buttonSpace}
-          variant="outlined"
-          onClick={onLogin}
-        >
+      <Box className={styles.align}>
+        <Button className={styles.space} variant="outlined" onClick={onLogin}>
           Login
         </Button>
       </Box>

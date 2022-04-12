@@ -1,7 +1,11 @@
 import React from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import { apiCall } from '../components/Helper';
 import { NavTabs } from '../components/NavTab';
+import styles from '../components/Style.module.css';
 
 function QuizNew () {
   const navigate = useNavigate();
@@ -22,9 +26,32 @@ function QuizNew () {
   return (
     <>
       <NavTabs />
-      <h1>QuizNew</h1>
-      Quiz name: <input type="text" onChange={(e) => setName(e.target.value)} />
-      <button onClick={createQuiz}>Create</button>
+      <h1>Add A New Quiz</h1>
+      <Box
+        className={`${styles.align} ${styles.page}`}
+        sx={{
+          maxWidth: '100%'
+        }}
+      >
+        <TextField
+          sx={{
+            width: '70%',
+            minWidth: 300
+          }}
+          id="standard-basic"
+          label="Quiz Name"
+          variant="filled"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Button
+          disabled={name.length === 0}
+          variant="contained"
+          size="large"
+          onClick={createQuiz}
+        >
+          Create
+        </Button>
+      </Box>
     </>
   );
 }

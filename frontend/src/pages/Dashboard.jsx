@@ -28,7 +28,7 @@ function Dashboard () {
     <>
       <NavTabs />
       <Button
-        className={styles.buttonSpace}
+        className={styles.space}
         variant="outlined"
         onClick={() => navigate('/quiz/new')}
       >

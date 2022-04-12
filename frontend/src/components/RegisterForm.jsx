@@ -35,6 +35,7 @@ function RegisterForm () {
         }}
       />
       <TextField
+        className={styles.space}
         id="password"
         label="Password"
         type="password"
@@ -46,7 +47,7 @@ function RegisterForm () {
         label="Name"
         onChange={(e) => setName(e.target.value)}
       />
-      <Box className={`${styles.alignRight} ${styles.buttonSpace}`}>
+      <Box className={`${styles.align} ${styles.space}`}>
         <Button variant="outlined" onClick={onSubmit}>
           Register
         </Button>

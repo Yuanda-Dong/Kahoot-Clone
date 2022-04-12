@@ -31,7 +31,7 @@ export default function QuizEdit () {
     <>
       <NavTabs />
       <Button
-        className={styles.buttonSpace}
+        className={styles.space}
         variant="outlined"
         onClick={() => {
           navigate(`/quiz/${params.quizid}/${questions.length}`);
