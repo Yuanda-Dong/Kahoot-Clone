@@ -1,13 +1,20 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import React from 'react';
+import NavTabs from '../components/NavTab';
 import QuestionCard from '../components/QuestionCard';
 import { apiCall } from '../components/Helper';
 
 import Button from '@mui/material/Button';
 
 export default function QuizEdit () {
-  const params = useParams();
   const navigate = useNavigate();
+  const token = localStorage.getItem('authToken');
+  React.useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  });
+  const params = useParams();
   const [quiz, setQuiz] = React.useState('');
   const [questions, setQuestions] = React.useState([]);
   const [questionDeleted, setQuestionDeleted] = React.useState(false);
@@ -21,6 +28,7 @@ export default function QuizEdit () {
 
   return (
     <>
+      <NavTabs />
       <Button
         variant="outlined"
         onClick={() => {

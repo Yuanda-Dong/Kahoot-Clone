@@ -17,7 +17,7 @@ function RegisterForm () {
   const onSubmit = () => {
     apiCall('admin/auth/register', 'POST', { email, password, name }).then(
       (data) => {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('authToken', data.token);
         console.log(data);
         navigate('/dashboard');
       }

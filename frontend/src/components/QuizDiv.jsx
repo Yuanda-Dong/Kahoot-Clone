@@ -118,7 +118,6 @@ export default function QuizDiv (props) {
       </Dialog>
 
       {/* Dialog for showing session ID */}
-
       <Dialog
         open={sessionID !== 0}
         onClose={() => {
@@ -144,6 +143,7 @@ export default function QuizDiv (props) {
         </DialogActions>
       </Dialog>
 
+      {/* Dialog for navigating to result page */}
       <Dialog
         open={stopDialog}
         onClose={() => setStopDialog(false)}

@@ -7,6 +7,12 @@ import { useNavigate } from 'react-router-dom';
 
 function Dashboard () {
   const navigate = useNavigate();
+  const token = localStorage.getItem('authToken');
+  React.useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  });
 
   // fetch quiz data
   const [quizData, getQuizData] = React.useState([]);

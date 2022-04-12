@@ -19,7 +19,7 @@ export default function NavTabs () {
       <Tabs value={value} onChange={handleChange} aria-label="navigation bar">
         <LinkTab label="Dashboard" href="/dashboard" />
         <LinkTab label="Report" href="/report" />
-        <LinkTab label="Log out" href="/logout" />
+        <LinkTab label="Log out" href="/login" />
       </Tabs>
     </Box>
   );
