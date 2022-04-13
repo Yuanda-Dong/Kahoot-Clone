@@ -54,9 +54,17 @@ export default function QuestionEdit () {
   };
 
   const handleCorrect = (event, idx) => {
-    const newCorrect = [...correct];
-    newCorrect[idx] = !newCorrect[idx];
-    setCorrect(newCorrect);
+    if (
+      !(
+        question.type === 'Single choice' &&
+        correct.includes(true) &&
+        correct[idx] === false
+      )
+    ) {
+      const newCorrect = [...correct];
+      newCorrect[idx] = !newCorrect[idx];
+      setCorrect(newCorrect);
+    }
   };
   const handleAnswer = (event, idx) => {
     const newAnswer = [...answers];
@@ -201,7 +209,7 @@ export default function QuestionEdit () {
       </div>
 
       {answers.map((e, idx) => (
-        <span key={idx}>
+        <span style={{ display: 'inline-block' }} key={idx}>
           <TextField
             value={e}
             label={`Answer ${idx + 1}`}
