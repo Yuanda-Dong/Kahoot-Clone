@@ -53,10 +53,7 @@ export default function QuestionCard (props) {
 
   return (
     <>
-      <Card
-        className={`${styles.cardStyle} ${styles.space}`}
-        sx={{ width: '80%', minWidth: 300, maxWidth: 600 }}
-      >
+      <Card className={`${styles.cardStyle} ${styles.space}`}>
         <CardContent>
           {/* question title */}
           <Typography gutterBottom variant="h5" component="div">
@@ -87,7 +84,9 @@ export default function QuestionCard (props) {
             />
               )
             : (
-            <img src={thisQuestion.media} width={345} alt="Question Media" />
+                thisQuestion.media && (
+              <img src={thisQuestion.media} width={345} alt="Question Media" />
+                )
               )}
 
           {/* question options */}

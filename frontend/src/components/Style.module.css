@@ -1,6 +1,9 @@
 .App {
   margin: 0 5%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pageMargin {
@@ -28,6 +31,7 @@
 }
 
 .pageAlign {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -37,7 +41,7 @@
 .cardStyle {
   width: 80%;
   min-width: 300px;
-  max-width: 600px;
+  max-width: 1200px;
 }
 
 .loadingBox {
