@@ -4,7 +4,7 @@ import { NavTabLogin } from '../components/NavTab';
 
 function Login () {
   localStorage.setItem('authToken', '');
-
+  localStorage.setItem('email', '');
   return (
     <>
       <NavTabLogin />

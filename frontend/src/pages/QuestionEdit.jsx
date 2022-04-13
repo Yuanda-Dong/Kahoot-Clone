@@ -198,11 +198,11 @@ export default function QuestionEdit () {
           onChange={handleMedia}
         />
         <Button variant="contained" component="label">
-          Upload Image
+          Upload Image [jpg/jpeg]
           <input
             type="file"
             hidden
-            accept="image/jpeg, image/png, image/jpg"
+            accept="image/jpeg, image/jpg"
             onChange={handleImage}
           />
         </Button>

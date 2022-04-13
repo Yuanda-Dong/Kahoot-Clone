@@ -17,9 +17,12 @@ function RegisterForm () {
   const onSubmit = () => {
     apiCall('admin/auth/register', 'POST', { email, password, name }).then(
       (data) => {
-        localStorage.setItem('authToken', data.token);
-        console.log(data);
-        navigate('/dashboard');
+        if (data.token) {
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('email', email);
+          console.log(data);
+          navigate('/dashboard');
+        }
       }
     );
   };
