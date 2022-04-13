@@ -92,8 +92,8 @@ export default function QuizDiv (props) {
 
   // the quiz card content
   return (
-    <div id="quizPanel" className={`${styles.cardStyle} ${styles.pageAlign}`}>
-      <Card className={styles.space} sx={{ width: '80%', maxWidth: 600 }}>
+    <>
+      <Card className={`${styles.cardStyle} ${styles.space}`}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.name}
@@ -196,7 +196,7 @@ export default function QuizDiv (props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
 QuizDiv.propTypes = {
