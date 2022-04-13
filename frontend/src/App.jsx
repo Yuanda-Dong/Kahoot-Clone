@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import styles from './components/Style.module.css';
 
 import Welcome from './pages/Welcome';
 import Register from './pages/Register';
@@ -14,7 +15,7 @@ import QuestionEdit from './pages/QuestionEdit';
 
 function App () {
   return (
-    <div className="App">
+    <div className={styles.App}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome />} />

@@ -35,13 +35,7 @@ export default function QuizEdit () {
     <>
       <NavTabs />
       {loading && (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
+        <Box className={styles.loadingBox}>
           <CircularProgress />
         </Box>
       )}

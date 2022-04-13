@@ -12,17 +12,19 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-
 import { apiCall } from '../components/Helper';
+import styles from '../components/Style.module.css';
+
 export default function QuizDiv (props) {
+  const navigate = useNavigate();
+
+  // handle quiz delete
   const deleteGame = () => {
     handleClose();
     apiCall(`admin/quiz/${props.quizId}`, 'DELETE', {});
     props.update(true);
   };
-
-  const navigate = useNavigate();
-
+  // alert popup for quiz delete
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,6 +33,7 @@ export default function QuizDiv (props) {
     setOpen(false);
   };
   const handleEdit = () => {
+    props.update(true);
     navigate('/quiz/' + props.quizId);
   };
 
@@ -67,13 +70,38 @@ export default function QuizDiv (props) {
     }
   }, [gameOn]);
 
+  const calculateDuration = (questions) => {
+    return questions.map((q) => q.duration).reduce((a, b) => a + b);
+  };
+  const calculateCredits = (questions) => {
+    return questions.map((q) => q.credit).reduce((a, b) => a + b);
+  };
+
+  const [questionInfo, setQuestionInfo] = React.useState({});
+  // calculate question information
+  React.useEffect(() => {
+    if (props.questions !== undefined) {
+      questionInfo.n = props.questions.length;
+      setQuestionInfo({
+        n: props.questions.length,
+        duration: calculateDuration(props.questions),
+        credits: calculateCredits(props.questions)
+      });
+    }
+  }, [props.questions]);
+
+  // the quiz card content
   return (
-    <div>
-      <Card sx={{ maxWidth: 345 }}>
+    <div id="quizPanel" className={`${styles.cardStyle} ${styles.pageAlign}`}>
+      <Card className={styles.space} sx={{ width: '80%', maxWidth: 600 }}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.name}
           </Typography>
+
+          <p>Number of Questions : {questionInfo.n}</p>
+          <p>Time Limit : {questionInfo.duration}</p>
+          <p>Total Credits : {questionInfo.credits}</p>
         </CardContent>
         <CardMedia
           component="img"
@@ -176,5 +204,6 @@ QuizDiv.propTypes = {
   quizId: PropTypes.number,
   thumbnail: PropTypes.string,
   name: PropTypes.string,
+  questions: PropTypes.array,
   update: PropTypes.func
 };

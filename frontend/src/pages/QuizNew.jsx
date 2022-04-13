@@ -10,7 +10,7 @@ import styles from '../components/Style.module.css';
 function QuizNew () {
   const navigate = useNavigate();
   const [name, setName] = React.useState('');
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('authToken');
   React.useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -28,7 +28,7 @@ function QuizNew () {
       <NavTabs />
       <h1>Add A New Quiz</h1>
       <Box
-        className={`${styles.align} ${styles.page}`}
+        className={`${styles.align} ${styles.pageMargin}`}
         sx={{
           maxWidth: '100%'
         }}

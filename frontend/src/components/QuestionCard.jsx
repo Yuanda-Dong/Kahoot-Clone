@@ -55,7 +55,10 @@ export default function QuestionCard (props) {
 
   return (
     <>
-      <Card className={styles.space} sx={{ width: '80%', maxWidth: 345 }}>
+      <Card
+        className={`${styles.cardStyle} ${styles.space}`}
+        sx={{ width: '80%', minWidth: 300, maxWidth: 600 }}
+      >
         <CardContent>
           {/* question title */}
           <Typography gutterBottom variant="h5" component="div">

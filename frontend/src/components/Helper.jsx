@@ -10,11 +10,12 @@ export const apiCall = async (path, method, content) => {
         path === 'admin/auth/login' ||
         path.includes('play')
           ? undefined
-          : 'Bearer ' + localStorage.getItem('token')
+          : 'Bearer ' + localStorage.getItem('authToken')
     },
     body: method === 'GET' ? undefined : JSON.stringify(content)
   };
   const res = await fetch(`http://localhost:5005/${path}`, init);
+  // await console.log(res);
   const body = await res.json();
   if (body.error) {
     console.log(body.error);
