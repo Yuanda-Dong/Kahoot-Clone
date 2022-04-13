@@ -21,7 +21,7 @@ function Dashboard () {
 
   // fetch quiz data
   const [quizData, getQuizData] = React.useState([]);
-  // const [quizIDs, setQuizIDs] = React.useState([]);
+  const [quizzes, setQuizzes] = React.useState([]);
   const [questionData, setQuestionData] = React.useState([]);
   const [quizModified, setquizModifed] = React.useState(false);
   React.useEffect(() => {
@@ -50,24 +50,25 @@ function Dashboard () {
             }
           })
         );
-        return requests;
-      })
-      .then((requests) => {
-        Promise.allSettled(requests)
-          .then((responses) => {
-            return Promise.all(responses.map((res) => res.value.json()));
-          })
-          .then((data) => {
-            const qs = [];
-            data.map((quiz) => {
-              qs.push(quiz.questions);
-              setQuestionData(qs);
-              return null;
-            });
-            setLoading(false);
-          });
+        setQuizzes(requests);
       });
   }, [quizModified]);
+
+  React.useEffect(() => {
+    Promise.allSettled(quizzes)
+      .then((responses) => {
+        return Promise.all(responses.map((res) => res.value.json()));
+      })
+      .then((data) => {
+        const qs = [];
+        data.map((quiz) => {
+          qs.push(quiz.questions);
+          setQuestionData(qs);
+          return null;
+        });
+        setLoading(false);
+      });
+  }, [quizzes]);
 
   return (
     <>
