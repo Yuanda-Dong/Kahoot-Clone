@@ -15,10 +15,8 @@ function LoginForm () {
   const onLogin = () => {
     apiCall('admin/auth/login', 'POST', { email, password }).then((data) => {
       localStorage.setItem('authToken', data.token);
-      console.log(data);
       navigate('/dashboard');
     });
-    // login('admin/auth/login', 'POST', { email, password });
   };
 
   return (

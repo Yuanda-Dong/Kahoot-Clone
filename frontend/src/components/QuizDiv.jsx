@@ -33,7 +33,7 @@ export default function QuizDiv (props) {
     setOpen(false);
   };
   const handleEdit = () => {
-    props.update(true);
+    // props.update(true);
     navigate('/quiz/' + props.quizId);
   };
 
@@ -80,12 +80,18 @@ export default function QuizDiv (props) {
   const [questionInfo, setQuestionInfo] = React.useState({});
   // calculate question information
   React.useEffect(() => {
-    if (props.questions !== undefined) {
+    if (props.questions.length !== 0) {
       questionInfo.n = props.questions.length;
       setQuestionInfo({
         n: props.questions.length,
         duration: calculateDuration(props.questions),
         credits: calculateCredits(props.questions)
+      });
+    } else {
+      setQuestionInfo({
+        n: 0,
+        duration: 0,
+        credits: 0
       });
     }
   }, [props.questions]);

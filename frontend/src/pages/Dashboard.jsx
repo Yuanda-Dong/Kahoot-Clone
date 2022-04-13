@@ -11,7 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 function Dashboard () {
   const navigate = useNavigate();
   // loading icon
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const token = localStorage.getItem('authToken');
   React.useEffect(() => {
     if (!token) {
@@ -21,7 +21,7 @@ function Dashboard () {
 
   // fetch quiz data
   const [quizData, getQuizData] = React.useState([]);
-  const [quizzes, setQuizzes] = React.useState([]);
+  // const [quizzes, setQuizzes] = React.useState([]);
   const [questionData, setQuestionData] = React.useState([]);
   const [quizModified, setquizModifed] = React.useState(false);
   React.useEffect(() => {
@@ -50,25 +50,45 @@ function Dashboard () {
             }
           })
         );
-        setQuizzes(requests);
+        // setQuizzes(requests);
+        return requests;
+      })
+      .then((quizzes) => {
+        Promise.allSettled(quizzes)
+          .then((responses) => {
+            return Promise.all(responses.map((res) => res.value.json()));
+          })
+          .then((data) => {
+            const qs = [];
+            data.map((quiz) => {
+              qs.push(quiz.questions);
+              setQuestionData(qs);
+              return null;
+            });
+            setLoading(false);
+          });
       });
   }, [quizModified]);
 
-  React.useEffect(() => {
-    Promise.allSettled(quizzes)
-      .then((responses) => {
-        return Promise.all(responses.map((res) => res.value.json()));
-      })
-      .then((data) => {
-        const qs = [];
-        data.map((quiz) => {
-          qs.push(quiz.questions);
-          setQuestionData(qs);
-          return null;
-        });
-        setLoading(false);
-      });
-  }, [quizzes]);
+  // if (!loading) {
+  //   console.log(questionData);
+  // }
+
+  // React.useEffect(() => {
+  //   Promise.allSettled(quizzes)
+  //     .then((responses) => {
+  //       return Promise.all(responses.map((res) => res.value.json()));
+  //     })
+  //     .then((data) => {
+  //       const qs = [];
+  //       data.map((quiz) => {
+  //         qs.push(quiz.questions);
+  //         setQuestionData(qs);
+  //         return null;
+  //       });
+  //       setLoading(false);
+  //     });
+  // }, [quizzes]);
 
   return (
     <>
@@ -79,6 +99,8 @@ function Dashboard () {
           <CircularProgress />
         </Box>
       )}
+      {/* {!loading && console.log(questionData)} */}
+
       {!loading && (
         <div className={styles.pageAlign}>
           <Button
