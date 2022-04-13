@@ -8,12 +8,11 @@ import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { apiCall } from './Helper';
 import styles from './Style.module.css';
-
+import ReactPlayer from 'react-player';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -80,12 +79,17 @@ export default function QuestionCard (props) {
           <p>Credit: {thisQuestion.credit}</p>
 
           {/* question uploaded media */}
-          <CardMedia
-            component="img"
-            alt="question media"
-            height="100"
-            image={thisQuestion.img}
-          />
+          {thisQuestion.media.includes('youtube')
+            ? (
+            <ReactPlayer
+              url={thisQuestion.media}
+              width={345}
+              alt="Question Media"
+            />
+              )
+            : (
+            <img src={thisQuestion.media} width={345} alt="Question Media" />
+              )}
 
           {/* question options */}
           <Box sx={{ width: '100%' }}>
