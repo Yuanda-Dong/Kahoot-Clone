@@ -78,10 +78,9 @@ export default function QuestionCard (props) {
 
           {/* question uploaded media */}
           <CardMedia
-            component="img"
-            alt="question media"
-            height="100"
-            image={thisQuestion.img}
+            component="iframe"
+            title="test"
+            src="https://www.youtube.com/embed/Iulbypn-GlQ"
           />
 
           {/* question options */}

@@ -53,7 +53,7 @@ export default function QuestionEdit () {
     setQuestion(newQuestion);
   };
 
-  const handleCorrect = (idx) => {
+  const handleCorrect = (event, idx) => {
     const newCorrect = [...correct];
     newCorrect[idx] = !newCorrect[idx];
     setCorrect(newCorrect);
@@ -98,10 +98,16 @@ export default function QuestionEdit () {
   };
   useEffect(() => {
     apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
+      console.log(body.questions[questionid]);
       setQuestion(
         body.questions[questionid] ? body.questions[questionid] : question
       );
       // setQuestions(body.questions);
+      setNum(
+        body.questions[questionid]
+          ? body.questions[questionid].options.length
+          : 2
+      );
 
       setAnswers(
         body.questions[questionid]
@@ -113,16 +119,15 @@ export default function QuestionEdit () {
           ? body.questions[questionid].correctAnswer
           : correct
       );
-      setNum(
-        body.questions[questionid]
-          ? body.questions[questionid].options.length
-          : 2
-      );
+
       // }
     });
   }, []);
 
   const Submit = () => {
+    question.options = [...answers];
+    question.correctAnswer = [...correct];
+
     apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
       body.questions[questionid] = question;
       if (questionid === body.questions.length) {
@@ -135,13 +140,13 @@ export default function QuestionEdit () {
     });
   };
 
-  useEffect(() => {
-    // const newquestions = [...questions];
-    question.options = answers;
-    question.correctAnswer = correct;
-    // newquestions[questionid] = question;
-    // setQuestions(newquestions);
-  }, [answers, correct]);
+  // useEffect(() => {
+  // const newquestions = [...questions];
+  // question.options = [...answers];
+  // question.correctAnswer = [...correct];
+  // newquestions[questionid] = question;
+  // setQuestions(newquestions);
+  // }, [answers, correct]);
 
   return (
     <>
@@ -203,7 +208,10 @@ export default function QuestionEdit () {
             sx={{ width: 500, mt: 1.5, mb: 1.5 }}
             onChange={(event) => handleAnswer(event, idx)}
           />
-          <Checkbox onClick={() => handleCorrect(idx)} />
+          <Checkbox
+            checked={!!correct[idx]}
+            onClick={(event) => handleCorrect(event, idx)}
+          />
         </span>
       ))}
       <div>
