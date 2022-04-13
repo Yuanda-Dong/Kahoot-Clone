@@ -40,28 +40,30 @@ export default function QuizEdit () {
         </Box>
       )}
 
-      <div id="page" className={styles.pageAlign}>
-        <Button
-          className={styles.space}
-          variant="outlined"
-          onClick={() => {
-            navigate(`/quiz/${params.quizid}/${questions.length}`);
-          }}
-        >
-          Create New Question
-        </Button>
-        {questions.map((q, idx) => {
-          return (
-            <QuestionCard
-              key={idx}
-              quizID={parseInt(params.quizid)}
-              questionID={idx}
-              quiz={quiz}
-              deleteLive={setQuestionDeleted}
-            />
-          );
-        })}
-      </div>
+      {!loading && (
+        <div id="page" className={styles.pageAlign}>
+          <Button
+            className={styles.space}
+            variant="outlined"
+            onClick={() => {
+              navigate(`/quiz/${params.quizid}/${questions.length}`);
+            }}
+          >
+            Create New Question
+          </Button>
+          {questions.map((q, idx) => {
+            return (
+              <QuestionCard
+                key={idx}
+                quizID={parseInt(params.quizid)}
+                questionID={idx}
+                quiz={quiz}
+                deleteLive={setQuestionDeleted}
+              />
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }

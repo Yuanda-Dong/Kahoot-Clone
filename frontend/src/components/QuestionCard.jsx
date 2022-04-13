@@ -50,7 +50,6 @@ export default function QuestionCard (props) {
   };
 
   const thisQuestion = props.quiz.questions[props.questionID];
-  console.log(thisQuestion);
 
   return (
     <>
@@ -79,7 +78,7 @@ export default function QuestionCard (props) {
           <p>Credit: {thisQuestion.credit}</p>
 
           {/* question uploaded media */}
-          {thisQuestion.media.includes('youtube')
+          {thisQuestion.media && thisQuestion.media.includes('youtube')
             ? (
             <ReactPlayer
               url={thisQuestion.media}
