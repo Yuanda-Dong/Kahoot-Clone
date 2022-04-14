@@ -64,7 +64,7 @@ export default function QuizDiv (props) {
 
   //   copy to click board function
   const copyToClickboard = () => {
-    const text = `/play/${active}`;
+    const text = `http://localhost:3000/play/${sessionID}`;
     navigator.clipboard.writeText(text);
     setActive(false);
   };

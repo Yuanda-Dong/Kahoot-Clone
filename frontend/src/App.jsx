@@ -39,8 +39,11 @@ function App () {
           {/* unique route for players to join */}
           <Route path="/play" element={<Join />} />
 
-          {/* click "copy link", start a game */}
-          <Route path="/play/:sessionID" element={<PlayGame />} />
+          {/* click "copy link", sessionID is pre-populated */}
+          <Route path="/play/:sessionID" element={<Join />} />
+
+          {/* play game */}
+          <Route path="/play/:sessionID/:player" element={<PlayGame />} />
 
           {/* show report page for for all past sessions */}
           <Route path="/report" element={<Report />} />

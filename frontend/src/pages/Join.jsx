@@ -1,17 +1,21 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import styles from '../components/Style.module.css';
 
 export default function Join () {
-  //   const navigate = useNavigate();
-  const [sessionID, setSessionID] = React.useState(0);
+  // 942691
+  const navigate = useNavigate();
+  const params = useParams();
+  const session = params.sessionID;
+  console.log(session);
+  const [sessionID, setSessionID] = React.useState(session);
   const [name, setName] = React.useState('');
-  //   const joinHandler = (e)=>{
-
-  //   }
+  const joinHandler = (e) => {
+    navigate(`/play/${sessionID}/${name}`);
+  };
 
   return (
     <>
@@ -29,6 +33,7 @@ export default function Join () {
           }}
           id="standard-basic"
           label="Session ID"
+          value={session}
           variant="filled"
           onChange={(e) => setSessionID(e.target.value)}
         />
@@ -42,7 +47,12 @@ export default function Join () {
           variant="filled"
           onChange={(e) => setName(e.target.value)}
         />
-        <Button disabled={!sessionID || !name} variant="contained" size="large">
+        <Button
+          disabled={!sessionID || !name}
+          variant="contained"
+          size="large"
+          onClick={joinHandler}
+        >
           Join
         </Button>
       </Box>
