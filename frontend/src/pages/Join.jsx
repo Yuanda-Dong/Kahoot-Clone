@@ -8,9 +8,10 @@ import styles from '../components/Style.module.css';
 export default function Join () {
   //   const navigate = useNavigate();
   const [sessionID, setSessionID] = React.useState(0);
-//   const joinHandler = (e)=>{
+  const [name, setName] = React.useState('');
+  //   const joinHandler = (e)=>{
 
-  }
+  //   }
 
   return (
     <>
@@ -29,7 +30,7 @@ export default function Join () {
           id="standard-basic"
           label="Session ID"
           variant="filled"
-          onChange={(e) => setSessionID(e.target.value)
+          onChange={(e) => setSessionID(e.target.value)}
         />
         <TextField
           sx={{
@@ -37,11 +38,12 @@ export default function Join () {
             minWidth: 300
           }}
           id="standard-basic"
-          label="Player's"
+          label="Player's Name"
           variant="filled"
+          onChange={(e) => setName(e.target.value)}
         />
-        <Button disabled={name.length === 0} variant="contained" size="large">
-          Create
+        <Button disabled={!sessionID || !name} variant="contained" size="large">
+          Join
         </Button>
       </Box>
     </>
