@@ -65,7 +65,7 @@ export function sortQuiz (quizzes) {
 
 export function emailValid (email) {
   if (!/^.+@.+..+$/.test(email)) {
-    console.log('Please enter a valid email address');
+    alert('Please enter a valid email address');
     return false;
   }
   return true;
@@ -76,7 +76,7 @@ export function passwordValid (password) {
       password
     )
   ) {
-    console.log(
+    alert(
       'The password must meet the following criteria:\nAt least 8-digit long\nAt Least 1 Uppercase\nAt Least 1 Lowercase\nAt Least 1 number\nAnd At Least 1 special character'
     );
     return false;

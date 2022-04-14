@@ -13,6 +13,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { apiCall, defaultImage } from '../components/Helper';
 import styles from '../components/Style.module.css';
+
 export default function QuizDiv (props) {
   const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ export default function QuizDiv (props) {
   //   handle game start / stop
   const [clicked, setClicked] = React.useState(false);
   const [gameOn, setGameOn] = React.useState(props.quiz.active !== null);
-  const [active, setActive] = React.useState(false);
+  const [showSessionID, setShowSessionID] = React.useState(false);
   const [sessionID, setSessionID] = React.useState(0);
   const [stopDialog, setStopDialog] = React.useState(false);
 
@@ -50,7 +51,7 @@ export default function QuizDiv (props) {
       setClicked(false);
       apiCall(`admin/quiz/${props.quiz.id}/start`, 'POST', {}).then(() => {
         apiCall(`admin/quiz/${props.quiz.id}`, 'GET', {}).then((data) => {
-          setActive(true);
+          setShowSessionID(true);
           setSessionID(data.active);
         }); // start a game, and get session ID
       });
@@ -66,7 +67,7 @@ export default function QuizDiv (props) {
   const copyToClickboard = () => {
     const text = `http://localhost:3000/play/${sessionID}`;
     navigator.clipboard.writeText(text);
-    setActive(false);
+    setShowSessionID(false);
   };
 
   // calculate question information, display in the dashboard cards
@@ -95,6 +96,8 @@ export default function QuizDiv (props) {
       });
     }
   }, [props.questions]);
+
+  // console.log(props.quiz.name + ' ' + props.quiz.active);
 
   // the quiz card content
   return (
@@ -165,9 +168,9 @@ export default function QuizDiv (props) {
 
       {/* Dialog for showing session ID */}
       <Dialog
-        open={active}
+        open={showSessionID}
         onClose={() => {
-          setActive(false);
+          setShowSessionID(false);
         }}
         aria-labelledby="game-start-dialog-title"
         aria-describedby="game-start-dialog-description"
