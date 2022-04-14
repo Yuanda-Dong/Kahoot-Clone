@@ -7,10 +7,12 @@
 }
 
 .pageMargin {
-  margin: 0 5%;
+  margin: 5%;
 }
 
 .flexCol {
+  width: 50%;
+  min-width: 300px;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -36,7 +38,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 0 5%;
+  margin: 5%;
 }
 .cardStyle {
   width: 80%;

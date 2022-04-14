@@ -58,3 +58,10 @@ export function fileToDataUrl (file) {
   reader.readAsDataURL(file);
   return dataUrlPromise;
 }
+
+export function sortQuiz (quizzes) {
+  const sortedQuiz = quizzes.sort((a, b) =>
+    a.createdAt < b.createdAt ? 1 : -1
+  );
+  return sortedQuiz;
+}

@@ -4,12 +4,12 @@ import { NavTabLogin } from '../components/NavTab';
 
 function Welcome () {
   return (
-    <div>
+    <>
       <NavTabLogin />
       <div className={styles.container}>
         <h1 className={styles.header}>Welcome to BigBrain!</h1>
       </div>
-    </div>
+    </>
   );
 }
 

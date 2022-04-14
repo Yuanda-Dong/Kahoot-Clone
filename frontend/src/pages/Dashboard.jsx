@@ -1,5 +1,5 @@
 import React from 'react';
-import { apiCall } from '../components/Helper';
+import { apiCall, sortQuiz } from '../components/Helper';
 import { NavTabs } from '../components/NavTab';
 import QuizDiv from '../components/QuizDiv';
 import Button from '@mui/material/Button';
@@ -31,7 +31,7 @@ function Dashboard () {
       .then((data) => {
         getQuizData(data.quizzes);
         setquizModifed(false);
-        return data.quizzes;
+        return sortQuiz(data.quizzes);
       })
       .then((quizzes) => {
         quizzes.map((quiz) => {
@@ -69,26 +69,6 @@ function Dashboard () {
           });
       });
   }, [quizModified]);
-
-  // if (!loading) {
-  //   console.log(questionData);
-  // }
-
-  // React.useEffect(() => {
-  //   Promise.allSettled(quizzes)
-  //     .then((responses) => {
-  //       return Promise.all(responses.map((res) => res.value.json()));
-  //     })
-  //     .then((data) => {
-  //       const qs = [];
-  //       data.map((quiz) => {
-  //         qs.push(quiz.questions);
-  //         setQuestionData(qs);
-  //         return null;
-  //       });
-  //       setLoading(false);
-  //     });
-  // }, [quizzes]);
 
   return (
     <>

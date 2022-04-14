@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { NavTabs } from '../components/NavTab';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import styles from '../components/Style.module.css';
 export default function QuestionEdit () {
   const params = useParams();
   const quizid = params.quizid;
@@ -159,88 +160,91 @@ export default function QuestionEdit () {
   return (
     <>
       <NavTabs />
-      <TextField
-        id="Question"
-        label="Question"
-        variant="outlined"
-        value={question.question ? question.question : ''}
-        sx={{ width: 500 }}
-        onChange={handleQuestion}
-      />
-      <DropDown
-        dropId="Question Type"
-        options={['Single choice', 'Multiple choice']}
-        target={question.type ? question.type : 'Single choice'}
-        handle={handleType}
-      ></DropDown>
 
-      <DropDown
-        dropId="Time Allowed (in seconds)"
-        options={[5, 10, 15, 20, 25, 30, 40, 50, 60]}
-        target={question.duration ? question.duration : 5}
-        handle={handleDuration}
-      ></DropDown>
-
-      <DropDown
-        dropId="Question Score"
-        options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        target={question.credit ? question.credit : 1}
-        handle={handleCredit}
-      ></DropDown>
-
-      <div>
+      <div className={styles.pageMargin}>
         <TextField
-          id="Media upload"
-          label="Youtube link / encoded image"
+          id="Question"
+          label="Question"
           variant="outlined"
-          value={question.media ? question.media : ''}
-          sx={{ width: 500, mr: 2 }}
-          onChange={handleMedia}
+          value={question.question ? question.question : ''}
+          sx={{ width: 500 }}
+          onChange={handleQuestion}
         />
-        <Button variant="contained" component="label">
-          Upload Image
-          <input
-            type="file"
-            hidden
-            accept="image/jpeg, image/png, image/jpg"
-            onChange={handleImage}
-          />
-        </Button>
-      </div>
+        <DropDown
+          dropId="Question Type"
+          options={['Single choice', 'Multiple choice']}
+          target={question.type ? question.type : 'Single choice'}
+          handle={handleType}
+        ></DropDown>
 
-      {answers.map((e, idx) => (
-        <span style={{ display: 'inline-block' }} key={idx}>
+        <DropDown
+          dropId="Time Allowed (in seconds)"
+          options={[5, 10, 15, 20, 25, 30, 40, 50, 60]}
+          target={question.duration ? question.duration : 5}
+          handle={handleDuration}
+        ></DropDown>
+
+        <DropDown
+          dropId="Question Score"
+          options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+          target={question.credit ? question.credit : 1}
+          handle={handleCredit}
+        ></DropDown>
+
+        <div>
           <TextField
-            value={e}
-            label={`Answer ${idx + 1}`}
-            sx={{ width: 500, mt: 1.5, mb: 1.5 }}
-            onChange={(event) => handleAnswer(event, idx)}
+            id="Media upload"
+            label="Youtube link / encoded image"
+            variant="outlined"
+            value={question.media ? question.media : ''}
+            sx={{ width: 500, mr: 2 }}
+            onChange={handleMedia}
           />
-          <Checkbox
-            checked={!!correct[idx]}
-            onClick={(event) => handleCorrect(event, idx)}
-          />
-        </span>
-      ))}
-      <div>
-        <Button variant="contained" onClick={addMore}>
-          Add More Answers [Max:6]
+          <Button variant="contained" component="label">
+            Upload Image
+            <input
+              type="file"
+              hidden
+              accept="image/jpeg, image/png, image/jpg"
+              onChange={handleImage}
+            />
+          </Button>
+        </div>
+
+        {answers.map((e, idx) => (
+          <span style={{ display: 'inline-block' }} key={idx}>
+            <TextField
+              value={e}
+              label={`Answer ${idx + 1}`}
+              sx={{ width: 500, mt: 1.5, mb: 1.5 }}
+              onChange={(event) => handleAnswer(event, idx)}
+            />
+            <Checkbox
+              checked={!!correct[idx]}
+              onClick={(event) => handleCorrect(event, idx)}
+            />
+          </span>
+        ))}
+        <div>
+          <Button variant="contained" onClick={addMore}>
+            Add More Answers [Max:6]
+          </Button>
+          <Button variant="contained" color="error" onClick={removeAns}>
+            Remove Last Answer
+          </Button>
+        </div>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={Submit}
+          sx={{ mt: 1.5 }}
+        >
+          Submit
         </Button>
-        <Button variant="contained" color="error" onClick={removeAns}>
-          Remove Last Answer
+        <Button variant="contained" onClick={Cancel} sx={{ mt: 1.5 }}>
+          Cancel
         </Button>
       </div>
-      <Button
-        variant="contained"
-        color="success"
-        onClick={Submit}
-        sx={{ mt: 1.5 }}
-      >
-        Submit
-      </Button>
-      <Button variant="contained" onClick={Cancel} sx={{ mt: 1.5 }}>
-        Cancel
-      </Button>
     </>
   );
 }
