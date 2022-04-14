@@ -10,6 +10,8 @@ export default function PlayGame () {
   //   const [questions, setQuestions] = React.useState([]);
   //   const [status, setStatus] = React.useState('');
   console.log(sessionID + playerName + playerID);
+  // const name = params.player;
+  console.log(sessionID);
   //   const navigate = useNavigate();
   //   React.useEffect(() => {
   //     apiCall(`play/${playerID}/status`, 'GET', {}).then((data) => {
