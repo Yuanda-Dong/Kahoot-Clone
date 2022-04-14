@@ -4,17 +4,24 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import styles from '../components/Style.module.css';
+import { apiCall } from '../components/Helper';
 
 export default function Join () {
   // 942691
   const navigate = useNavigate();
   const params = useParams();
   const session = params.sessionID;
-  console.log(session);
   const [sessionID, setSessionID] = React.useState(session);
   const [name, setName] = React.useState('');
   const joinHandler = (e) => {
-    navigate(`/play/${sessionID}/${name}`);
+    apiCall(`play/join/${sessionID}`, 'POST', { name: name }).then((data) => {
+      if (data.error) {
+        alert(data.error);
+      } else {
+        console.log(data.playerId);
+        navigate(`/play/${sessionID}/${name}=${data.playerId}`);
+      }
+    });
   };
 
   return (
