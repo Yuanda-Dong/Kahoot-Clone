@@ -202,6 +202,14 @@ export default function QuestionEdit () {
           target={question.credit ? question.credit : 1}
           handle={handleCredit}
         ></DropDown>
+        <TextField
+          id="Media upload"
+          label="Youtube link / encoded image"
+          variant="outlined"
+          value={question.media ? question.media : ''}
+          sx={{ width: 500, mr: 2 }}
+          onChange={handleMedia}
+        />
 
         <div>
           <Button variant="contained" component="label">
@@ -214,29 +222,6 @@ export default function QuestionEdit () {
             />
           </Button>
         </div>
-        {answers.map((e, idx) => (
-          <span style={{ display: 'inline-block' }} key={idx}>
-            <TextField
-              id="Media upload"
-              label="Youtube link / encoded image"
-              variant="outlined"
-              value={question.media ? question.media : ''}
-              sx={{ width: 500, mr: 2 }}
-              onChange={handleMedia}
-            />
-            <div>
-              <Button variant="contained" component="label">
-                Upload Image
-                <input
-                  type="file"
-                  hidden
-                  accept="image/jpeg, image/png, image/jpg"
-                  onChange={handleImage}
-                />
-              </Button>
-            </div>
-          </span>
-        ))}
 
         {answers.map((e, idx) => (
           <span style={{ display: 'inline-block' }} key={idx}>

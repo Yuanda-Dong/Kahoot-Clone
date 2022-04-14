@@ -29,6 +29,17 @@ export default function QuizEdit () {
       setQuiz(newQuiz);
     });
   };
+  const changeName = (event) => {
+    const newQuiz = { ...quiz };
+    newQuiz.name = event.target.value;
+    setQuiz(newQuiz);
+  };
+  React.useEffect(() => {
+    if (quiz !== '') {
+      apiCall(`admin/quiz/${params.quizid}`, 'PUT', quiz);
+    }
+  }, [quiz]);
+
   React.useEffect(() => {
     setLoading(true);
     apiCall(`admin/quiz/${params.quizid}`, 'GET', {}).then((data) => {
@@ -59,6 +70,7 @@ export default function QuizEdit () {
             value={quiz.name}
             label="Quiz name: "
             variant="standard"
+            onChange={changeName}
           />
           {quiz.thumbnail
             ? (
