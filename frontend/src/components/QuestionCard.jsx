@@ -85,6 +85,7 @@ export default function QuestionCard (props) {
               url={thisQuestion.media}
               width={345}
               alt="Question Media"
+              controls={true}
             />
               )
             : (
