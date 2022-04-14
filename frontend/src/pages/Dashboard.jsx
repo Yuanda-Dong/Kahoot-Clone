@@ -13,7 +13,7 @@ function Dashboard () {
   // loading icon
   const [loading, setLoading] = React.useState(true);
   const token = localStorage.getItem('authToken');
-  const email = localStorage.getItem('email');
+  // const email = localStorage.getItem('email');
   React.useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -91,23 +91,20 @@ function Dashboard () {
           >
             Create New Quiz
           </Button>
-          {quizData
-            .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-            .filter((e) => e.owner === email)
-            .map((quiz, idx) => {
-              return (
-                <QuizDiv
-                  key={quiz.id}
-                  active={quiz.active}
-                  quizId={quiz.id}
-                  createdAt={quiz.createdAt}
-                  name={quiz.name}
-                  thumbnail={quiz.thumbnail}
-                  questions={questionData[idx]}
-                  update={setquizModifed}
-                />
-              );
-            })}
+          {quizData.map((quiz, idx) => {
+            return (
+              <QuizDiv
+                key={quiz.id}
+                active={quiz.active}
+                quizId={quiz.id}
+                createdAt={quiz.createdAt}
+                name={quiz.name}
+                thumbnail={quiz.thumbnail}
+                questions={questionData[idx]}
+                update={setquizModifed}
+              />
+            );
+          })}
         </div>
       )}
     </>

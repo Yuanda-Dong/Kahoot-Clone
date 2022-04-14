@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 // import { styled } from '@mui/material/styles'
-import { apiCall } from './Helper';
+import { apiCall, emailValid, passwordValid } from './Helper';
 import styles from './Style.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,16 +15,18 @@ function RegisterForm () {
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    apiCall('admin/auth/register', 'POST', { email, password, name }).then(
-      (data) => {
-        if (data.token) {
-          localStorage.setItem('authToken', data.token);
-          localStorage.setItem('email', email);
-          console.log(data);
-          navigate('/dashboard');
+    if (emailValid(email) && passwordValid(password)) {
+      apiCall('admin/auth/register', 'POST', { email, password, name }).then(
+        (data) => {
+          if (data.token) {
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('email', email);
+            console.log(data);
+            navigate('/dashboard');
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   return (
