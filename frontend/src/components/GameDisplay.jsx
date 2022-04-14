@@ -21,7 +21,8 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(2),
   textAlign: 'center',
-  color: theme.palette.text.secondary
+  color: theme.palette.text.secondary,
+  cursor: 'pointer'
 }));
 
 export default function GameDisplay () {
@@ -43,7 +44,9 @@ export default function GameDisplay () {
   return (
     <>
       <Chip label="Player Name" />
-      <p>Timer: {time}</p>
+      <p>
+        Timer: {time} Credit: {'🪙'.repeat(5)}
+      </p>
       <h1>Question Title is here</h1>
 
       <Box className={styles.pageAlign}>
