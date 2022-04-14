@@ -107,27 +107,31 @@ export default function QuestionEdit () {
   };
   useEffect(() => {
     apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
-      console.log(body.questions[questionid]);
-      setQuestion(
-        body.questions[questionid] ? body.questions[questionid] : question
-      );
-      // setQuestions(body.questions);
-      setNum(
-        body.questions[questionid]
-          ? body.questions[questionid].options.length
-          : 2
-      );
+      if (body.error) {
+        alert(body.error);
+      } else {
+        console.log(body.questions[questionid]);
+        setQuestion(
+          body.questions[questionid] ? body.questions[questionid] : question
+        );
+        // setQuestions(body.questions);
+        setNum(
+          body.questions[questionid]
+            ? body.questions[questionid].options.length
+            : 2
+        );
 
-      setAnswers(
-        body.questions[questionid]
-          ? body.questions[questionid].options
-          : answers
-      );
-      setCorrect(
-        body.questions[questionid]
-          ? body.questions[questionid].correctAnswer
-          : correct
-      );
+        setAnswers(
+          body.questions[questionid]
+            ? body.questions[questionid].options
+            : answers
+        );
+        setCorrect(
+          body.questions[questionid]
+            ? body.questions[questionid].correctAnswer
+            : correct
+        );
+      }
 
       // }
     });
@@ -138,14 +142,22 @@ export default function QuestionEdit () {
     question.correctAnswer = [...correct];
 
     apiCall('admin/quiz/' + quizid, 'GET').then((body) => {
-      body.questions[questionid] = question;
-      if (questionid === body.questions.length) {
-        body.questions.push(question);
+      if (body.error) {
+        alert(body.error);
       } else {
         body.questions[questionid] = question;
+        if (questionid === body.questions.length) {
+          body.questions.push(question);
+        } else {
+          body.questions[questionid] = question;
+        }
+        apiCall(`admin/quiz/${quizid}`, 'PUT', body).then((body) => {
+          if (body.error) {
+            alert(body.error);
+          }
+        });
+        navigate('/quiz/' + quizid);
       }
-      apiCall(`admin/quiz/${quizid}`, 'PUT', body);
-      navigate('/quiz/' + quizid);
     });
   };
 

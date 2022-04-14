@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import styles from './Style.module.css';
-import { apiCall, emailValid, passwordValid } from './Helper';
+import { apiCall } from './Helper';
 import { useNavigate } from 'react-router-dom';
 
 function LoginForm () {
@@ -13,13 +13,15 @@ function LoginForm () {
   const navigate = useNavigate();
 
   const onLogin = () => {
-    if (emailValid(email) && passwordValid(password)) {
-      apiCall('admin/auth/login', 'POST', { email, password }).then((data) => {
-        localStorage.setItem('authToken', data.token);
+    apiCall('admin/auth/login', 'POST', { email, password }).then((body) => {
+      if (body.error) {
+        alert(body.error);
+      } else {
+        localStorage.setItem('authToken', body.token);
         localStorage.setItem('email', email);
         navigate('/dashboard');
-      });
-    }
+      }
+    });
   };
 
   return (

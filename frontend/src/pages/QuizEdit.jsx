@@ -32,10 +32,14 @@ export default function QuizEdit () {
   React.useEffect(() => {
     setLoading(true);
     apiCall(`admin/quiz/${params.quizid}`, 'GET', {}).then((data) => {
-      setQuiz(data);
-      setQuestions(data.questions);
-      setQuestionDeleted(false);
-      setLoading(false);
+      if (data.error) {
+        alert(data.error);
+      } else {
+        setQuiz(data);
+        setQuestions(data.questions);
+        setQuestionDeleted(false);
+        setLoading(false);
+      }
     });
   }, [questionDeleted]);
 

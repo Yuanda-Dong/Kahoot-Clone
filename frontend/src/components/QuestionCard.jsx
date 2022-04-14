@@ -46,6 +46,10 @@ export default function QuestionCard (props) {
       questions: props.quiz.questions,
       name: props.quiz.name,
       thumbnail: props.quiz.thumbnail
+    }).then((body) => {
+      if (body.error) {
+        alert(body.error);
+      }
     });
   };
 

@@ -16,13 +16,10 @@ export const apiCall = async (path, method, content) => {
   };
   const res = await fetch(`http://localhost:5005/${path}`, init);
   // await console.log(res);
+
   const body = await res.json();
-  if (body.error) {
-    alert(body.error);
-    return body.error;
-  } else {
-    return body;
-  }
+  return body;
+
   // });
 };
 

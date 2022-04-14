@@ -23,6 +23,8 @@ function RegisterForm () {
             localStorage.setItem('email', email);
             console.log(data);
             navigate('/dashboard');
+          } else if (data.error) {
+            alert(data.error);
           }
         }
       );

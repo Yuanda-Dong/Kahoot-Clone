@@ -19,8 +19,12 @@ function QuizNew () {
 
   const createQuiz = () => {
     apiCall('admin/quiz/new', 'POST', { name }).then((data) => {
-      console.log(data);
-      navigate('/dashboard');
+      if (data.error) {
+        alert(data.error);
+      } else {
+        console.log(data);
+        navigate('/dashboard');
+      }
     });
   };
 
