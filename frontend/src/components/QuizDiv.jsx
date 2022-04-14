@@ -34,6 +34,15 @@ export default function QuizDiv (props) {
     navigate('/quiz/' + props.quiz.id);
   };
 
+  const handleAdvance = () => {
+    apiCall(`admin/quiz/${props.quiz.id}/advance`, 'POST', {}).then((res) => {
+      console.log(res);
+      if (res.stage === props.questions.length) {
+        setGameOn(false);
+      }
+    });
+  };
+
   //   handle game start / stop
   const [clicked, setClicked] = React.useState(false);
   const [gameOn, setGameOn] = React.useState(props.quiz.active !== null);
@@ -135,13 +144,27 @@ export default function QuizDiv (props) {
           >
             {gameOn ? <>Stop</> : <>Start</>}
           </Button>
+          {!gameOn && (
+            <div>
+              <Button size="small" onClick={handleEdit}>
+                Edit
+              </Button>
+              <Button size="small" color="error" onClick={handleClickOpen}>
+                Delete
+              </Button>
+            </div>
+          )}
 
-          <Button size="small" onClick={handleEdit}>
-            Edit
-          </Button>
-          <Button size="small" color="error" onClick={handleClickOpen}>
-            Delete
-          </Button>
+          {gameOn && (
+            <Button
+              size="small"
+              color="success"
+              variant="contained"
+              onClick={handleAdvance}
+            >
+              Advance
+            </Button>
+          )}
         </CardActions>
       </Card>
 
