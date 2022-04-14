@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { apiCall } from './Helper';
 import styles from './Style.module.css';
 import ReactPlayer from 'react-player';
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -20,15 +21,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary
 }));
-
-// const colorPalette = [
-//   '#e4e9be',
-//   '#95d1cc',
-//   '#8d8daa',
-//   '#c69b7b',
-//   '#a2d5ab',
-//   '#fdd7aa'
-// ];
 
 export default function QuestionCard (props) {
   const navigate = useNavigate();
