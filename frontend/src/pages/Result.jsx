@@ -1,7 +1,7 @@
 import React from 'react';
 // import { apiCall } from '../components/Helper';
 import { NavTabs } from '../components/NavTab';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Result () {
   const navigate = useNavigate();
@@ -11,6 +11,10 @@ export default function Result () {
       navigate('/login');
     }
   });
+
+  const location = useLocation();
+  const pathname = location.pathname;
+  console.log(pathname);
 
   return (
     <>

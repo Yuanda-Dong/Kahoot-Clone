@@ -91,20 +91,18 @@ function Dashboard () {
           >
             Create New Quiz
           </Button>
-          {quizData.map((quiz, idx) => {
-            return (
-              <QuizDiv
-                key={quiz.id}
-                active={quiz.active}
-                quizId={quiz.id}
-                createdAt={quiz.createdAt}
-                name={quiz.name}
-                thumbnail={quiz.thumbnail}
-                questions={questionData[idx]}
-                update={setquizModifed}
-              />
-            );
-          })}
+          <div className={styles.cardPanel}>
+            {quizData.map((quiz, idx) => {
+              return (
+                <QuizDiv
+                  key={idx}
+                  quiz={quiz}
+                  questions={questionData[idx]}
+                  update={setquizModifed}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
     </>

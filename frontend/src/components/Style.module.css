@@ -38,12 +38,19 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 5%;
+  margin: 5%, 2%;
+}
+
+.cardPanel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
 }
 .cardStyle {
   width: 80%;
   min-width: 300px;
-  max-width: 1200px;
+  max-width: 500px;
 }
 
 .loadingBox {

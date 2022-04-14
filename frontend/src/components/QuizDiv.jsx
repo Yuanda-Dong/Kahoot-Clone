@@ -19,7 +19,7 @@ export default function QuizDiv (props) {
   // handle quiz delete
   const deleteGame = () => {
     handleClose();
-    apiCall(`admin/quiz/${props.quizId}`, 'DELETE', {});
+    apiCall(`admin/quiz/${props.quiz.id}`, 'DELETE', {});
     props.update(true);
   };
   // alert popup for quiz delete
@@ -31,21 +31,14 @@ export default function QuizDiv (props) {
     setOpen(false);
   };
   const handleEdit = () => {
-    // props.update(true);
-    navigate('/quiz/' + props.quizId);
-  };
-
-  //   copy to click board function
-  const copyToClickboard = () => {
-    const text = `/play/${sessionID}`;
-    navigator.clipboard.writeText(text);
-    getSessionID(0);
+    navigate('/quiz/' + props.quiz.id);
   };
 
   //   handle game start / stop
   const [clicked, setClicked] = React.useState(false);
-  const [gameOn, setGameOn] = React.useState(props.active !== null);
-  const [sessionID, getSessionID] = React.useState(0);
+  const [gameOn, setGameOn] = React.useState(props.quiz.active !== null);
+  const [active, setActive] = React.useState(false);
+  const [sessionID, setSessionID] = React.useState(0);
   const [stopDialog, setStopDialog] = React.useState(false);
 
   const handleGameOn = () => {
@@ -55,19 +48,28 @@ export default function QuizDiv (props) {
   React.useEffect(() => {
     if (gameOn && clicked) {
       setClicked(false);
-      apiCall(`admin/quiz/${props.quizId}/start`, 'POST', {}).then(() => {
-        apiCall(`admin/quiz/${props.quizId}`, 'GET', {}).then((data) => {
-          getSessionID(data.active);
-        });
+      apiCall(`admin/quiz/${props.quiz.id}/start`, 'POST', {}).then(() => {
+        apiCall(`admin/quiz/${props.quiz.id}`, 'GET', {}).then((data) => {
+          setActive(true);
+          setSessionID(data.active);
+        }); // start a game, and get session ID
       });
     } else if (!gameOn && clicked) {
       setClicked(false);
-      apiCall(`admin/quiz/${props.quizId}/end`, 'POST', {}).then(() => {
+      apiCall(`admin/quiz/${props.quiz.id}/end`, 'POST', {}).then(() => {
         setStopDialog(true); // show popup for stoping a game
       });
     }
   }, [gameOn]);
 
+  //   copy to click board function
+  const copyToClickboard = () => {
+    const text = `/play/${active}`;
+    navigator.clipboard.writeText(text);
+    setActive(false);
+  };
+
+  // calculate question information, display in the dashboard cards
   const calculateDuration = (questions) => {
     return questions.map((q) => q.duration).reduce((a, b) => a + b);
   };
@@ -76,7 +78,7 @@ export default function QuizDiv (props) {
   };
 
   const [questionInfo, setQuestionInfo] = React.useState({});
-  // calculate question information
+
   React.useEffect(() => {
     if (props.questions.length !== 0) {
       questionInfo.n = props.questions.length;
@@ -100,19 +102,19 @@ export default function QuizDiv (props) {
       <Card className={`${styles.cardStyle} ${styles.space}`}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props.name}
+            {props.quiz.name}
           </Typography>
 
           <p>Number of Questions : {questionInfo.n}</p>
           <p>Time Limit : {questionInfo.duration}</p>
           <p>Total Credits : {questionInfo.credits}</p>
         </CardContent>
-        {props.thumbnail
+        {props.quiz.thumbnail
           ? (
-          <img src={props.thumbnail} width={345} alt="Quiz Thumbnail" />
+          <img src={props.quiz.thumbnail} width={200} alt="Quiz Thumbnail" />
             )
           : (
-          <img src={defaultImage} width={345} alt="Quiz Thumbnail" />
+          <img src={defaultImage} width={200} alt="Quiz Thumbnail" />
             )}
         <CardActions>
           <Button
@@ -140,7 +142,7 @@ export default function QuizDiv (props) {
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title">
-          {`Are you sure you want to delete the quiz: ${props.name.toUpperCase()}?`}
+          {`Are you sure you want to delete the quiz: ${props.quiz.name.toUpperCase()}?`}
         </DialogTitle>
 
         <DialogActions>
@@ -153,15 +155,15 @@ export default function QuizDiv (props) {
 
       {/* Dialog for showing session ID */}
       <Dialog
-        open={sessionID !== 0}
+        open={active}
         onClose={() => {
-          getSessionID(0);
+          setActive(false);
         }}
         aria-labelledby="game-start-dialog-title"
         aria-describedby="game-start-dialog-description"
       >
         <DialogTitle id="game-start-dialog-title">
-          {`Quiz ${props.name.toUpperCase()} has started`}
+          {`Quiz ${props.quiz.name.toUpperCase()} has started`}
         </DialogTitle>
 
         <DialogContent>
@@ -205,10 +207,11 @@ export default function QuizDiv (props) {
   );
 }
 QuizDiv.propTypes = {
-  active: PropTypes.number,
-  quizId: PropTypes.number,
-  thumbnail: PropTypes.string,
-  name: PropTypes.string,
+  quiz: PropTypes.object,
+  // active: PropTypes.number,
+  // quizId: PropTypes.number,
+  // thumbnail: PropTypes.string,
+  // name: PropTypes.string,
   questions: PropTypes.array,
   update: PropTypes.func
 };
