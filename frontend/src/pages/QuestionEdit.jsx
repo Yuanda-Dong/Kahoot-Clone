@@ -192,24 +192,39 @@ export default function QuestionEdit () {
         ></DropDown>
 
         <div>
-          <TextField
-            id="Media upload"
-            label="Youtube link / encoded image"
-            variant="outlined"
-            value={question.media ? question.media : ''}
-            sx={{ width: 500, mr: 2 }}
-            onChange={handleMedia}
-          />
           <Button variant="contained" component="label">
-            Upload Image
+            Upload Image [jpg/jpeg]
             <input
               type="file"
               hidden
-              accept="image/jpeg, image/png, image/jpg"
+              accept="image/jpeg, image/jpg"
               onChange={handleImage}
             />
           </Button>
         </div>
+        {answers.map((e, idx) => (
+          <span style={{ display: 'inline-block' }} key={idx}>
+            <TextField
+              id="Media upload"
+              label="Youtube link / encoded image"
+              variant="outlined"
+              value={question.media ? question.media : ''}
+              sx={{ width: 500, mr: 2 }}
+              onChange={handleMedia}
+            />
+            <div>
+              <Button variant="contained" component="label">
+                Upload Image
+                <input
+                  type="file"
+                  hidden
+                  accept="image/jpeg, image/png, image/jpg"
+                  onChange={handleImage}
+                />
+              </Button>
+            </div>
+          </span>
+        ))}
 
         {answers.map((e, idx) => (
           <span style={{ display: 'inline-block' }} key={idx}>
@@ -225,6 +240,7 @@ export default function QuestionEdit () {
             />
           </span>
         ))}
+
         <div>
           <Button variant="contained" onClick={addMore}>
             Add More Answers [Max:6]

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
@@ -12,9 +11,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import { apiCall } from '../components/Helper';
+import { apiCall, defaultImage } from '../components/Helper';
 import styles from '../components/Style.module.css';
-
 export default function QuizDiv (props) {
   const navigate = useNavigate();
 
@@ -109,12 +107,13 @@ export default function QuizDiv (props) {
           <p>Time Limit : {questionInfo.duration}</p>
           <p>Total Credits : {questionInfo.credits}</p>
         </CardContent>
-        <CardMedia
-          component="img"
-          alt={`thumbnail for quiz: ${props.name}`}
-          height="140"
-          image={props.thumbnail}
-        />
+        {props.thumbnail
+          ? (
+          <img src={props.thumbnail} width={345} alt="Quiz Thumbnail" />
+            )
+          : (
+          <img src={defaultImage} width={345} alt="Quiz Thumbnail" />
+            )}
         <CardActions>
           <Button
             size="small"
