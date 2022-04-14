@@ -111,10 +111,20 @@ export default function QuizDiv (props) {
         </CardContent>
         {props.quiz.thumbnail
           ? (
-          <img src={props.quiz.thumbnail} width={200} alt="Quiz Thumbnail" />
+          <img
+            src={props.quiz.thumbnail}
+            width={200}
+            height={120}
+            alt="Quiz Thumbnail"
+          />
             )
           : (
-          <img src={defaultImage} width={200} alt="Quiz Thumbnail" />
+          <img
+            src={defaultImage}
+            width={200}
+            height={120}
+            alt="Quiz Thumbnail"
+          />
             )}
         <CardActions>
           <Button

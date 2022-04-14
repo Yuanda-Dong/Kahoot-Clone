@@ -12,6 +12,8 @@ import QuizEdit from './pages/QuizEdit';
 import Result from './pages/Result';
 import Report from './pages/Report';
 import QuestionEdit from './pages/QuestionEdit';
+import Join from './pages/Join';
+import PlayGame from './pages/PlayGame';
 
 function App () {
   return (
@@ -31,17 +33,14 @@ function App () {
           {/* click "edit a Quiz", need a quizID in route */}
           <Route path="/quiz/:quizid" element={<QuizEdit />} />
 
-          {/* click "edit a question in a quiz", need a quizID in route */}
-          {/* <Route
-            path="/quiz $quizID=1 $questionID=123"
-            element={<QuizEdit />}
-          /> */}
-
-          {/* click "copy link", start a game */}
-          {/* <Route path="/play/{sessionID}" element={<PlayGame />} /> */}
-
           {/* show result page for one session */}
           <Route path="/result/:sessionID" element={<Result />} />
+
+          {/* unique route for players to join */}
+          <Route path="/play" element={<Join />} />
+
+          {/* click "copy link", start a game */}
+          <Route path="/play/:sessionID" element={<PlayGame />} />
 
           {/* show report page for for all past sessions */}
           <Route path="/report" element={<Report />} />
