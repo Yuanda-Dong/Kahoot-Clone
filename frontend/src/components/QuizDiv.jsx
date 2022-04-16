@@ -37,7 +37,6 @@ export default function QuizDiv (props) {
 
   const handleAdvance = () => {
     apiCall(`admin/quiz/${props.quiz.id}/advance`, 'POST', {}).then((res) => {
-      console.log(res);
       if (res.stage === props.questions.length) {
         setGameOn(false);
       }
@@ -90,7 +89,7 @@ export default function QuizDiv (props) {
   const [questionInfo, setQuestionInfo] = React.useState({});
 
   React.useEffect(() => {
-    if (props.questions.length !== 0) {
+    if (props.questions && props.questions.length !== 0) {
       questionInfo.n = props.questions.length;
       setQuestionInfo({
         n: props.questions.length,

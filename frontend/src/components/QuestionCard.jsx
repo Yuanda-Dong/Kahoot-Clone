@@ -49,7 +49,7 @@ export default function QuestionCard (props) {
 
   return (
     <>
-      <Card className={`${styles.cardStyle} ${styles.space}`}>
+      <Card sx={{ width: 0.8 }}>
         <CardContent>
           {/* question title */}
           <Typography gutterBottom variant="h5" component="div">
@@ -75,14 +75,18 @@ export default function QuestionCard (props) {
             ? (
             <ReactPlayer
               url={thisQuestion.media}
-              width={345}
+              className={styles.media}
               alt="Question Media"
               controls={true}
             />
               )
             : (
                 thisQuestion.media && (
-              <img src={thisQuestion.media} width={345} alt="Question Media" />
+              <img
+                src={thisQuestion.media}
+                className={styles.media}
+                alt="Question Media"
+              />
                 )
               )}
 

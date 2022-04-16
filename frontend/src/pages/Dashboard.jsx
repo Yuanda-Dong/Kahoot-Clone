@@ -30,6 +30,7 @@ function Dashboard () {
     const IDs = [];
     apiCall('admin/quiz', 'GET', {})
       .then((data) => {
+        // console.log(data);
         getQuizData(data.quizzes);
         setquizModifed(false);
         return sortQuiz(data.quizzes);

@@ -34,7 +34,7 @@
 
 .pageAlign {
   width: 100%;
-  height: 80%;
+  /* height: 80%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -59,4 +59,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.media {
+  margin: auto;
+  max-width: 100%; 
+}
+.marginQuestion{
+  margin: 30px;
 }
