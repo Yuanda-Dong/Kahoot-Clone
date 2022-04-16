@@ -1,13 +1,15 @@
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import styles from './Style.module.css';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
+import Checkbox from '@mui/material/Checkbox';
+import { apiCall } from '../components/Helper';
+import { Button } from '@mui/material';
 const colorPalette = [
   '#e4e9be',
   '#95d1cc',
@@ -16,7 +18,7 @@ const colorPalette = [
   '#a2d5ab',
   '#fdd7aa'
 ];
-const Item = styled(Paper)(({ theme }) => ({
+const Item = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(2),
@@ -25,34 +27,70 @@ const Item = styled(Paper)(({ theme }) => ({
   cursor: 'pointer'
 }));
 
-export default function GameDisplay ({ question, playerName }) {
-  const [time, setTime] = React.useState(question.duration);
+export default function GameDisplay ({ question, playerName, playerID }) {
+  const [time, setTime] = React.useState(
+    Math.ceil(
+      question.duration -
+        (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
+    )
+  );
+  const [answers, setAnswers] = React.useState([]);
+  const counter = React.useRef();
   React.useEffect(() => {
-    setTime(question.duration);
-  }, [question]);
+    setTime(
+      Math.ceil(
+        question.duration -
+          (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
+      )
+    );
+    counter.current = setInterval(() => {
+      setTime((time) => time - 1);
+    }, 1000);
 
-  // const counter = React.useRef();
+    setAnswers(new Array(question.options.length).fill(false));
+    return () => clearInterval(counter.current);
+  }, [question.isoTimeLastQuestionStarted]);
 
-  // React.useEffect(() => {
-  //   counter.current = setInterval(() => {
-  //     setTime((time) => time - 1);
-  //   }, 1000);
-  //   return () => clearInterval(counter.current);
-  // }, []);
-  // React.useEffect(() => {
-  //   if (time <= 0) {
-  //     clearInterval(counter.current);
-  //   }
-  // }, [time]);
-  // if (question.duration > 50) {
-  //   setTime(50);
-  // }
+  React.useEffect(() => {
+    if (time <= 0) {
+      apiCall(`play/${playerID}/answer`, 'GET', {}).then((res) => {
+        const newAnswers = [...answers];
+        newAnswers.forEach((e, idx) => {
+          if (res.answerIds.includes(idx)) {
+            newAnswers[idx] = true;
+          } else {
+            newAnswers[idx] = false;
+          }
+        });
+        setAnswers(newAnswers);
+      });
+      clearInterval(counter.current);
+    }
+  }, [time]);
+
+  const handleClick = (event, index) => {
+    const newAnswers = [...answers];
+    if (question.type === 'Single choice' && answers.includes(true)) {
+      newAnswers[answers.indexOf(true)] = false;
+    }
+    newAnswers[index] = !newAnswers[index];
+    setAnswers(newAnswers);
+    const indices = [];
+    let idx = newAnswers.indexOf(true);
+    while (idx !== -1) {
+      indices.push(idx);
+      idx = newAnswers.indexOf(true, idx + 1);
+    }
+    // console.log(indices);
+    apiCall(`play/${playerID}/answer`, 'PUT', { answerIds: indices });
+  };
 
   return (
     <>
       <Chip label={playerName} />
       <p>
-        Timer: {time} Credit: {'🪙'.repeat(question.credit)}
+        Type: {question.type}, Timer: {time}, Credit:{' '}
+        {'🪙'.repeat(question.credit)}
       </p>
       <h1>{question.question}</h1>
       <Box className={styles.pageAlign}>
@@ -82,25 +120,25 @@ export default function GameDisplay ({ question, playerName }) {
         >
           {question.options.map((op, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
-              <Item sx={{ backgroundColor: colorPalette[index] }}>{op}</Item>
+              <Item
+                disabled={time <= 0}
+                sx={{ backgroundColor: colorPalette[index], width: '100%' }}
+                onClick={(event) => handleClick(event, index)}
+              >
+                {op}
+                <Checkbox checked={!!answers[index]} />
+              </Item>
             </Grid>
           ))}
         </Grid>
-        <Button
-          disabled={time === 0}
-          size="large"
-          color="success"
-          variant="outlined"
-        >
-          Submit
-        </Button>
       </Box>
     </>
   );
 }
 GameDisplay.propTypes = {
   question: PropTypes.object,
-  playerName: PropTypes.string
+  playerName: PropTypes.string,
+  playerID: PropTypes.string
 };
 
 // {

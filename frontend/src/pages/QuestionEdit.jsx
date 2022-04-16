@@ -55,17 +55,12 @@ export default function QuestionEdit () {
   };
 
   const handleCorrect = (event, idx) => {
-    if (
-      !(
-        question.type === 'Single choice' &&
-        correct.includes(true) &&
-        correct[idx] === false
-      )
-    ) {
-      const newCorrect = [...correct];
-      newCorrect[idx] = !newCorrect[idx];
-      setCorrect(newCorrect);
+    const newCorrect = [...correct];
+    if (question.type === 'Single choice' && correct.includes(true)) {
+      newCorrect[correct.indexOf(true)] = false;
     }
+    newCorrect[idx] = !newCorrect[idx];
+    setCorrect(newCorrect);
   };
   const handleAnswer = (event, idx) => {
     const newAnswer = [...answers];
@@ -110,7 +105,7 @@ export default function QuestionEdit () {
       if (body.error) {
         alert(body.error);
       } else {
-        console.log(body.questions[questionid]);
+        // console.log(body.questions[questionid]);
         setQuestion(
           body.questions[questionid] ? body.questions[questionid] : question
         );
@@ -145,12 +140,16 @@ export default function QuestionEdit () {
       if (body.error) {
         alert(body.error);
       } else {
-        body.questions[questionid] = question;
-        if (questionid === body.questions.length) {
+        if (parseInt(questionid) === body.questions.length) {
+          // if (parseInt(questionid) > 0) {
+          //   body.questions[parseInt(questionid) - 1].last = 0;
+          // }
+          // question.last = 1;
           body.questions.push(question);
         } else {
           body.questions[questionid] = question;
         }
+        // console.log(body.questions);
         apiCall(`admin/quiz/${quizid}`, 'PUT', body).then((body) => {
           if (body.error) {
             alert(body.error);

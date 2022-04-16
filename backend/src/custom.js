@@ -32,7 +32,7 @@ export const quizQuestionPublicReturn = question => {
  the correct answers (minimum 1).
 */
 export const quizQuestionGetCorrectAnswers = question => {
-  return [...Array(question.correctAnswer.length).keys()].filter((e)=>correctAnswer[e]===true);
+  return [...Array(question.correctAnswer.length).keys()].filter((e)=>question.correctAnswer[e]===true);
 };
 
 /*
