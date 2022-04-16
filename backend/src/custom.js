@@ -23,7 +23,7 @@
 // }
 export const quizQuestionPublicReturn = question => {
   const questionF = (({ question,options,duration,credit,type,media }) => ({ question,options,duration,credit,type,media }))(question);
-  console.log('See question: ', questionF);
+  // console.log('See question: ', questionF);
   return questionF;
 };
 

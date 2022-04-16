@@ -65,6 +65,8 @@
   margin: auto;
   max-width: 100%; 
 }
-.marginQuestion{
-  margin: 30px;
+.fun {
+  text-align: center;
+  /* background-color: black; */
+  /* color: white; */
 }
