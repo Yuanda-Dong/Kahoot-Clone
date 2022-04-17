@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ResultComp from '../components/ResultComp';
+import { NavTabs } from '../components/NavTab';
 export default function Result () {
   const navigate = useNavigate();
   const token = localStorage.getItem('authToken');
@@ -16,6 +17,7 @@ export default function Result () {
 
   return (
     <>
+      <NavTabs />
       <ResultComp sessionID={sessionID} quizid={quizid} />
     </>
   );
