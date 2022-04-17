@@ -36,7 +36,8 @@ export default function Result () {
           })}
         </div>
 
-        {displayReport && <h2>{displayReport}</h2>}
+        {displayReport.length > 0 && <h2>{displayReport[0]}</h2>}
+        {/* displayReport[0]: sessionID, displayReport[1]: quizID */}
       </div>
     </>
   );

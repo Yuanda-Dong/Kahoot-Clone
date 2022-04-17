@@ -6,6 +6,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
+import styles from './Style.module.css';
 
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import DraftsIcon from '@mui/icons-material/Drafts';
@@ -26,7 +27,7 @@ export default function ReportList (props) {
       component="nav"
       aria-labelledby="report-list-by-quiz-name"
     >
-      <ListSubheader onClick={handleClick}>
+      <ListSubheader className={styles.reportNav} onClick={handleClick}>
         <ListItemText primary={props.quiz.name} />
       </ListSubheader>
       {props.quiz.oldSessions.map((session, idx) => {

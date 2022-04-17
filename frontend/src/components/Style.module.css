@@ -64,7 +64,7 @@
 .media {
   margin: auto;
   width: 30%;
-  height: 15%;
+  height: 20%;
   object-fit: cover;
   /* max-width: 100%; */
 }
@@ -79,4 +79,13 @@
   width: 90vw;
   display: flex;
   gap: 5%;
+}
+
+.reportNav {
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.reportNav:hover {
+  background-color: antiquewhite;
 }

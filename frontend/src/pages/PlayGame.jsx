@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { apiCall } from '../components/Helper';
 import GameDisplay from '../components/GameDisplay';
 import PlayerResult from '../components/PlayerResult';
+import styles from '../components/Style.module.css';
 import Fun from '../components/Fun';
 
 export default function PlayGame () {
@@ -47,7 +48,7 @@ export default function PlayGame () {
   }, []);
 
   return (
-    <>
+    <div className={styles.pageAlign}>
       {!started && Object.keys(result).length === 0 && <Fun />}
       {started && Object.keys(question).length > 0 && (
         <GameDisplay
@@ -59,6 +60,6 @@ export default function PlayGame () {
       {Object.keys(result).length > 0 && (
         <PlayerResult result={result} playerName={playerName} />
       )}
-    </>
+    </div>
   );
 }
