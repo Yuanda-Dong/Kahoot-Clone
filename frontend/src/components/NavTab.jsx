@@ -21,6 +21,7 @@ export function NavTabs () {
   }
 
   const logOut = () => {
+    localStorage.clear();
     apiCall('admin/auth/logout', 'POST', {});
   };
 
