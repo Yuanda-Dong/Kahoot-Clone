@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './Style.module.css';
+import rabbit from './rabbit.png';
 export default function Fun () {
   return (
     <div className={styles.fun}>
       <h1>Lobby </h1>
 
       <img
-        src="http://www.capsulecomputers.com.au/wp-content/uploads/2015/10/is-the-order-a-rabbit-screenshot-5-600x338.png"
+        src={rabbit}
         alt="rabbit image"
         // width={'60%'}
       />
