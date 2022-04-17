@@ -91,5 +91,6 @@
 }
 
 .reportContent {
+  max-width: 70%;
   flex: 3;
 }
