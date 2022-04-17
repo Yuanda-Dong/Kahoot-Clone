@@ -21,7 +21,7 @@ export default function QuestionEdit () {
     type: 'Single choice'
   });
   const [answers, setAnswers] = React.useState(['', '']);
-  const [correct, setCorrect] = React.useState([false, false]);
+  const [correct, setCorrect] = React.useState([true, false]);
   const [num, setNum] = React.useState(2);
 
   const handleType = (val) => {
