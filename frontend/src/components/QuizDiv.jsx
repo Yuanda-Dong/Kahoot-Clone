@@ -233,7 +233,7 @@ export default function QuizDiv (props) {
           <Button
             autoFocus
             onClick={() => {
-              navigate('/result/' + sessionID);
+              navigate(`/result/qid=${props.quiz.id}/sid=${sessionID}`);
             }}
           >
             Yes

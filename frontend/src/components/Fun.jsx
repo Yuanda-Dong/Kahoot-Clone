@@ -11,7 +11,9 @@ export default function Fun () {
         alt="rabbit image"
         // width={'60%'}
       />
-      <p>Watch some funny cat videos while you are waiting</p>
+      <p>
+        Watch some funny cat videos while you are waiting for the game to start
+      </p>
       <ul>
         <li>
           <a href="https://www.youtube.com/watch?v=aFuUidBR1aQ">Cat Video 1</a>
