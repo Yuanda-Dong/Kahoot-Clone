@@ -4,6 +4,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import { NavTabs } from '../components/NavTab';
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiCall } from '../components/Helper';
+import { Line } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
+// Chart.register(CategoryScale);
+// Chart.register(LinearScale);
 
 export default function Result () {
   const navigate = useNavigate();
@@ -18,6 +24,8 @@ export default function Result () {
   const sessionID = params.sessionID;
   const quizid = params.quizid;
   const [rows, setRows] = React.useState([]);
+  const [lineChartOne, setlineChartOne] = React.useState({});
+  const [lineChartTwo, setlineChartTwo] = React.useState({});
   const calScore = (questions, answers) => {
     let score = 0;
     for (let i = 0; i < answers.length; i++) {
@@ -29,6 +37,62 @@ export default function Result () {
     apiCall('admin/quiz/' + quizid, 'GET').then((res) => {
       const questions = res.questions;
       apiCall(`admin/session/${sessionID}/results`).then((res) => {
+        const labels1 = [...Array(questions.length).keys()].map(
+          (e) => `Q${e + 1}`
+        );
+
+        const datasets1 = [
+          {
+            label: 'Percentage of people got right',
+            data: questions
+              .map((_, idx) =>
+                res.results.reduce(
+                  (x, y) => x + (y.answers[idx].correct ? 1 : 0),
+                  0
+                )
+              )
+              .map((e) => e / questions.length),
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }
+        ];
+
+        const data1 = {
+          labels: labels1,
+          datasets: datasets1
+        };
+
+        setlineChartOne(data1);
+
+        const datasets2 = [
+          {
+            label: 'Average Response Time',
+            data: questions
+              .map((_, idx) =>
+                res.results.reduce(
+                  (x, y) =>
+                    x +
+                    (y.answers[idx].answeredAt
+                      ? (new Date(y.answers[idx].answeredAt) -
+                          new Date(y.answers[idx].questionStartedAt)) /
+                        1000
+                      : questions[idx].duration),
+                  0
+                )
+              )
+              .map((e) => e / questions.length),
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }
+        ];
+
+        const data2 = {
+          labels: labels1,
+          datasets: datasets2
+        };
+        setlineChartTwo(data2);
         setRows(
           res.results
             .sort(
@@ -41,9 +105,7 @@ export default function Result () {
                 id: idx + 1,
                 name: e.name,
                 score: calScore(questions, e.answers),
-                correct: e.answers.reduce((x, y) =>
-                  x.correct ? 1 : 0 + y.correct ? 1 : 0
-                )
+                correct: e.answers.reduce((x, y) => x + (y.correct ? 1 : 0), 0)
               };
             })
         );
@@ -66,16 +128,6 @@ export default function Result () {
       width: 200
     }
   ];
-
-  // const rows = [
-  //   { id: 1, name: 'Jon', score: 35, correct: 5 },
-  //   { id: 2, name: 'Cersei', score: 42, correct: 5 },
-  //   { id: 3, name: 'Jaime', score: 45, correct: 5 },
-  //   { id: 4, name: 'Arya', score: 16, correct: 5 },
-  //   { id: 5, name: 'Daenerys', score: 50, correct: 5 }
-  // ];
-
-  // console.log(results);
   return (
     <>
       <NavTabs />
@@ -87,6 +139,21 @@ export default function Result () {
           pageSize={5}
           rowsPerPageOptions={[5]}
         />
+        {Object.keys(lineChartOne).length > 0 && (
+          <Line
+            data={lineChartOne}
+            options={{
+              scales: {
+                y: {
+                  max: 1,
+                  min: 0
+                }
+              }
+            }}
+          />
+        )}
+
+        {Object.keys(lineChartTwo).length > 0 && <Line data={lineChartTwo} />}
       </div>
     </>
   );
