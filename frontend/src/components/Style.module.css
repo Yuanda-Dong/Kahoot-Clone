@@ -63,10 +63,20 @@
 
 .media {
   margin: auto;
-  max-width: 100%; 
+  width: 30%;
+  height: 15%;
+  object-fit: cover;
+  /* max-width: 100%; */
 }
 .fun {
   text-align: center;
   /* background-color: black; */
   /* color: white; */
+}
+
+.reportAlign {
+  margin: 5%;
+  width: 90vw;
+  display: flex;
+  gap: 5%;
 }

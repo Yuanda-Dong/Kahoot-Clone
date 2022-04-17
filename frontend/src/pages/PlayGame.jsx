@@ -48,7 +48,6 @@ export default function PlayGame () {
 
   return (
     <>
-      <h1>This is the Game page</h1>
       {!started && Object.keys(result).length === 0 && <Fun />}
       {started && Object.keys(question).length > 0 && (
         <GameDisplay

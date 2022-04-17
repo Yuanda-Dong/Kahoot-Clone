@@ -112,14 +112,9 @@ export default function GameDisplay ({ question, playerName, playerID }) {
             />
               )
             )}
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          style={{ margin: '10px' }}
-        >
+        <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: '10px' }}>
           {question.options.map((op, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index}>
+            <Grid item xs={12} sm={12} md={6} key={index}>
               <Item
                 disabled={time <= 0}
                 sx={{ backgroundColor: colorPalette[index], width: '100%' }}

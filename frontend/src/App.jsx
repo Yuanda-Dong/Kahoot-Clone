@@ -9,7 +9,6 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import QuizNew from './pages/QuizNew';
 import QuizEdit from './pages/QuizEdit';
-import Result from './pages/Result';
 import Report from './pages/Report';
 import QuestionEdit from './pages/QuestionEdit';
 import Join from './pages/Join';
@@ -32,9 +31,6 @@ function App () {
 
           {/* click "edit a Quiz", need a quizID in route */}
           <Route path="/quiz/:quizid" element={<QuizEdit />} />
-
-          {/* show result page for one session */}
-          <Route path="/result/:sessionID" element={<Result />} />
 
           {/* unique route for players to join */}
           <Route path="/play" element={<Join />} />

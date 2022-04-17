@@ -191,7 +191,7 @@ export default function QuestionEdit () {
         <DropDown
           dropId="Time Allowed (in seconds)"
           options={[5, 10, 15, 20, 25, 30, 40, 50, 60]}
-          target={question.duration ? question.duration : 5}
+          target={question.duration ? question.duration : 30}
           handle={handleDuration}
         ></DropDown>
 

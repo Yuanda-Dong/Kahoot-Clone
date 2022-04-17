@@ -72,6 +72,8 @@ function Dashboard () {
       });
   }, [quizModified]);
 
+  console.log(quizData);
+
   return (
     <>
       <NavTabs />

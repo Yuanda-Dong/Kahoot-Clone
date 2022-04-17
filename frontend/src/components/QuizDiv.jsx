@@ -40,7 +40,7 @@ export default function QuizDiv (props) {
   );
   const handleAdvance = () => {
     apiCall(`admin/quiz/${props.quiz.id}/advance`, 'POST', {}).then((res) => {
-      if (res.stage === props.questions.length) {
+      if (res.stage === props.questions.length - 1) {
         // setGameOn(false);
         setQuestionFinished(true);
       }
