@@ -66,7 +66,7 @@ export default function Resultcomp ({ sessionID, quizid }) {
                   0
                 )
               )
-              .map((e) => e / questions.length),
+              .map((e) => e / res.results.length),
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
