@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './/Style.module.css';
 import { DataGrid } from '@mui/x-data-grid';
 import { apiCall } from '../components/Helper';
 import { Line } from 'react-chartjs-2';
@@ -113,8 +114,8 @@ export default function Resultcomp ({ sessionID, quizid }) {
     }
   ];
   return (
-    <div>
-      <h1>Top 5 players</h1>
+    <div className={styles.reportContent}>
+      <h3>Top 5 players</h3>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
@@ -143,8 +144,8 @@ export default function Resultcomp ({ sessionID, quizid }) {
 }
 
 Resultcomp.propTypes = {
-  sessionID: PropTypes.string,
-  quizid: PropTypes.string
+  sessionID: PropTypes.number,
+  quizid: PropTypes.number
 };
 
 // {

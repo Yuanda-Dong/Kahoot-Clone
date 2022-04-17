@@ -89,3 +89,8 @@
 .reportNav:hover {
   background-color: antiquewhite;
 }
+
+.reportContent {
+  width: 700px;
+  flex: 3;
+}
