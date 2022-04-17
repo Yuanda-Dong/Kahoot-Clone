@@ -129,6 +129,13 @@ export default function Resultcomp ({ sessionID, quizid }) {
   return (
     <div className={styles.reportContent}>
       <h3>Top 5 players</h3>
+      <p>
+        Score calculation rule: If the answer is submitted in less then half of
+        the allowed duration, bonus mark is given linearly with time taken. More
+        precisely, bonus mark = 2*(allowed duration - time taken) / (allowed
+        duration) * question credit , the maximum achievable mark is therefore 2
+        * question credit.
+      </p>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}

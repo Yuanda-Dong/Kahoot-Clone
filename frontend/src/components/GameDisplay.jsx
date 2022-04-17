@@ -29,19 +29,15 @@ const Item = styled(Button)(({ theme }) => ({
 
 export default function GameDisplay ({ question, playerName, playerID }) {
   const [time, setTime] = React.useState(
-    Math.ceil(
-      question.duration -
-        (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
-    )
+    question.duration -
+      (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
   );
   const [answers, setAnswers] = React.useState([]);
   const counter = React.useRef();
   React.useEffect(() => {
     setTime(
-      Math.ceil(
-        question.duration -
-          (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
-      )
+      question.duration -
+        (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
     );
     counter.current = setInterval(() => {
       setTime((time) => time - 1);
@@ -89,7 +85,7 @@ export default function GameDisplay ({ question, playerName, playerID }) {
     <>
       <Chip label={playerName} />
       <p>
-        Type: {question.type}, Timer: {time}, Credit:{' '}
+        Type: {question.type}, Timer: {Math.ceil(time)}, Credit:{' '}
         {'🪙'.repeat(question.credit)}
       </p>
       <h1>{question.question}</h1>
