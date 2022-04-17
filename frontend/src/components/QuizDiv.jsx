@@ -36,7 +36,7 @@ export default function QuizDiv (props) {
   };
 
   const [questionFinished, setQuestionFinished] = React.useState(
-    props.questions.length === 0
+    props.questions === undefined
   );
   const handleAdvance = () => {
     apiCall(`admin/quiz/${props.quiz.id}/advance`, 'POST', {}).then((res) => {
