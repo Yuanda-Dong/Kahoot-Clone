@@ -34,7 +34,10 @@ function App () {
           <Route path="/quiz/:quizid" element={<QuizEdit />} />
 
           {/* show result page for one session */}
-          <Route path="/result/:sessionID" element={<Result />} />
+          <Route
+            path="/result/qid=:quizid/sid=:sessionID"
+            element={<Result />}
+          />
 
           {/* unique route for players to join */}
           <Route path="/play" element={<Join />} />
