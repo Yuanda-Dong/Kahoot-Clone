@@ -79,7 +79,7 @@ export default function Result () {
   return (
     <>
       <NavTabs />
-      <h1>This is a result page</h1>
+      <h1>Top 5 players</h1>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
