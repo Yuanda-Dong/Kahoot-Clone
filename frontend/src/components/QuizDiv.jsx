@@ -35,12 +35,23 @@ export default function QuizDiv (props) {
     navigate('/quiz/' + props.quiz.id);
   };
 
+  const [questionFinished, setQuestionFinished] = React.useState(
+    props.questions.length === 0
+  );
   const handleAdvance = () => {
     apiCall(`admin/quiz/${props.quiz.id}/advance`, 'POST', {}).then((res) => {
       if (res.stage === props.questions.length) {
-        setGameOn(false);
+        // setGameOn(false);
+        setQuestionFinished(true);
       }
     });
+  };
+
+  //   copy to click board function
+  const copyToClickboard = () => {
+    const text = `http://localhost:3000/play/${sessionID}`;
+    navigator.clipboard.writeText(text);
+    setShowSessionID(false);
   };
 
   //   handle game start / stop
@@ -70,13 +81,6 @@ export default function QuizDiv (props) {
       });
     }
   }, [gameOn]);
-
-  //   copy to click board function
-  const copyToClickboard = () => {
-    const text = `http://localhost:3000/play/${sessionID}`;
-    navigator.clipboard.writeText(text);
-    setShowSessionID(false);
-  };
 
   // calculate question information, display in the dashboard cards
   const calculateDuration = (questions) => {
@@ -162,6 +166,7 @@ export default function QuizDiv (props) {
               size="small"
               color="success"
               variant="contained"
+              disabled={questionFinished}
               onClick={handleAdvance}
             >
               Advance
