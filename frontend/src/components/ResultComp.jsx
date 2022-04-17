@@ -65,7 +65,7 @@ export default function Resultcomp ({ sessionID, quizid }) {
                   0
                 )
               )
-              .map((e) => e / questions.length),
+              .map((e) => e / res.results.length),
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
@@ -143,8 +143,8 @@ export default function Resultcomp ({ sessionID, quizid }) {
 }
 
 Resultcomp.propTypes = {
-  sessionID: PropTypes.string,
-  quizid: PropTypes.string
+  sessionID: PropTypes.number,
+  quizid: PropTypes.number
 };
 
 // {
