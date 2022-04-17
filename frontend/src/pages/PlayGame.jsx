@@ -42,7 +42,7 @@ export default function PlayGame () {
     managePage();
     const intv = setInterval(() => {
       managePage();
-    }, 1000);
+    }, 500);
     return () => clearInterval(intv);
   }, []);
 
