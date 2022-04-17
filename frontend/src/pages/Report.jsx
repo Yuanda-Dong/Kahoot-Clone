@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { apiCall } from '../components/Helper';
 import ReportList from '../components/ReportList';
 import styles from '../components/Style.module.css';
+import ResultComp from '../components/ResultComp';
 
 export default function Result () {
   const navigate = useNavigate();
@@ -36,8 +37,14 @@ export default function Result () {
           })}
         </div>
 
-        {displayReport.length > 0 && <h2>{displayReport[0]}</h2>}
-        {/* displayReport[0]: sessionID, displayReport[1]: quizID */}
+        {displayReport.length > 0 && (
+          <>
+            <ResultComp
+              sessionID={displayReport[0]}
+              quizid={displayReport[1]}
+            />
+          </>
+        )}
       </div>
     </>
   );
