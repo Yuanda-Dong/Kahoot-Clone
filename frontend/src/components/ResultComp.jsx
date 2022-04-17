@@ -14,7 +14,20 @@ export default function Resultcomp ({ sessionID, quizid }) {
   const calScore = (questions, answers) => {
     let score = 0;
     for (let i = 0; i < answers.length; i++) {
-      score += (answers[i].correct ? 1 : 0) * questions[i].credit;
+      if (answers[i].answeredAt) {
+        const timeTaken =
+          (new Date(answers[i].answeredAt) -
+            new Date(answers[i].questionStartedAt)) /
+          1000;
+        const duration = questions[i].duration;
+        const credit = questions[i].credit;
+        score +=
+          (answers[i].correct ? 1 : 0) *
+          (credit +
+            (credit + timeTaken < duration / 2
+              ? ((2 * (duration - timeTaken)) / duration) * credit
+              : 0));
+      }
     }
     return score;
   };
@@ -36,7 +49,7 @@ export default function Resultcomp ({ sessionID, quizid }) {
                   0
                 )
               )
-              .map((e) => e / questions.length),
+              .map((e) => e / res.results.length),
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
