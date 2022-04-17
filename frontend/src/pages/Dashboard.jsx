@@ -32,7 +32,6 @@ function Dashboard () {
       .then((data) => {
         // console.log(data);
         getQuizData(data.quizzes);
-        setquizModifed(false);
         return sortQuiz(data.quizzes);
       })
       .then((quizzes) => {
@@ -68,11 +67,10 @@ function Dashboard () {
               return null;
             });
             setLoading(false);
+            setquizModifed(false);
           });
       });
   }, [quizModified]);
-
-  console.log(quizData);
 
   return (
     <>
