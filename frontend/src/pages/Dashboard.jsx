@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../components/Style.module.css';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+// import myJason from '../example.json';
+// const jsonData = JSON.parse(myJason);
 
 function Dashboard () {
   const navigate = useNavigate();
@@ -71,6 +73,8 @@ function Dashboard () {
           });
       });
   }, [quizModified]);
+
+  // console.log(jsonData);
 
   return (
     <>

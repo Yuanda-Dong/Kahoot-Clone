@@ -1,0 +1,1 @@
+"{\"name\":\"John\", \"thumbnail\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\", \"questions\": [{\"question\":\"This is Question 1\", \"options\":[\"aaa\",\"bbb\",\"ccc\"], \"correctAnswer\":[true,false,true],\"duration\":15, \"credit\":3, \"type\":\"Multiple choice\"}]}"
