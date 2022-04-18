@@ -40,6 +40,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 5% 2%;
+  gap: 2rem;
 }
 
 .cardPanel {
@@ -61,10 +62,9 @@
 
 .media {
   margin: auto;
-  width: 30%;
-  height: 20%;
-  object-fit: cover;
-  /* max-width: 100%; */
+  max-width: 100%;
+  max-height: 230px;
+  object-fit: contain !important;
 }
 .fun {
   text-align: center;
@@ -92,4 +92,12 @@
   width: 70%;
   max-width: 70%;
   flex: 3;
+}
+
+.alignLeft {
+  align-self: flex-start;
+}
+
+.quizName {
+  font-size: 30px;
 }

@@ -18,7 +18,7 @@ export default function Result () {
   return (
     <>
       <NavTabs />
-      <ResultComp sessionID={sessionID} quizid={quizid} />
+      <ResultComp sessionID={parseInt(sessionID)} quizid={parseInt(quizid)} />
     </>
   );
 }

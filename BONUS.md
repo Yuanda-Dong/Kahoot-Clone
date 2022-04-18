@@ -1,1 +1,6 @@
 - have a dialog popup when deleting the quiz
+- implement loading circle while the page is not ready
+- disable game start when no question is available
+- implemented default quiz thumbnail when no image is uploaded
+- supported editing of quiz name and thumbnail
+- implemented validity check on email and password (upper + lower + special character + min 8)

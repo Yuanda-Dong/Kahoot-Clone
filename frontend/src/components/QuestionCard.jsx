@@ -8,11 +8,18 @@ import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { apiCall } from './Helper';
 import styles from './Style.module.css';
 import ReactPlayer from 'react-player';
+
+// <img
+//   src={thisQuestion.media}
+//   className={styles.media}
+//   alt="Question Media"
+// />
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -49,7 +56,7 @@ export default function QuestionCard (props) {
 
   return (
     <>
-      <Card sx={{ width: 0.8 }}>
+      <Card sx={{ width: 0.8, height: 'fit' }}>
         <CardContent>
           {/* question title */}
           <Typography gutterBottom variant="h5" component="div">
@@ -58,14 +65,14 @@ export default function QuestionCard (props) {
 
           {/* question metadata */}
           <p>
-            Question Type:{' '}
+            Question Type:
             {thisQuestion.type === 'Single choice'
               ? (
-              <span>Single Choice</span>
+              <span> Single Choice</span>
                 )
               : (
-              <span>Multiple Choice</span>
-                )}{' '}
+              <span> Multiple Choice</span>
+                )}
           </p>
           <p>Time: {thisQuestion.duration} seconds</p>
           <p>Credit: {thisQuestion.credit}</p>
@@ -82,9 +89,10 @@ export default function QuestionCard (props) {
               )
             : (
                 thisQuestion.media && (
-              <img
-                src={thisQuestion.media}
+              <CardMedia
                 className={styles.media}
+                component="img"
+                image={thisQuestion.media}
                 alt="Question Media"
               />
                 )

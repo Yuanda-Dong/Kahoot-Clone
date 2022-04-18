@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
+import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,6 +14,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { apiCall, defaultImage } from '../components/Helper';
 import styles from '../components/Style.module.css';
+
+// <img
+//   src={props.quiz.thumbnail}
+//   width={200}
+//   height={120}
+//   alt="Quiz Thumbnail"
+// />
+// <img
+//   src={defaultImage}
+//   width={200}
+//   height={120}
+//   alt="Quiz Thumbnail"
+// />
 
 export default function QuizDiv (props) {
   const navigate = useNavigate();
@@ -34,15 +48,17 @@ export default function QuizDiv (props) {
   const handleEdit = () => {
     navigate('/quiz/' + props.quiz.id);
   };
-
-  const [questionFinished, setQuestionFinished] = React.useState(
-    props.questions === undefined
+  console.log(props.questions.length === 0);
+  const [noQuestion, setNoQuestion] = React.useState(
+    props.questions.length === 0
   );
   const handleAdvance = () => {
     apiCall(`admin/quiz/${props.quiz.id}/advance`, 'POST', {}).then((res) => {
+      console.log(res.stage);
+      console.log(props.questions.length);
       if (res.stage === props.questions.length - 1) {
         // setGameOn(false);
-        setQuestionFinished(true);
+        setNoQuestion(true);
       }
     });
   };
@@ -76,6 +92,7 @@ export default function QuizDiv (props) {
       });
     } else if (!gameOn && clicked) {
       setClicked(false);
+      setNoQuestion(false);
       apiCall(`admin/quiz/${props.quiz.id}/end`, 'POST', {}).then(() => {
         setStopDialog(true); // show popup for stoping a game
       });
@@ -124,27 +141,30 @@ export default function QuizDiv (props) {
           <p>Time Limit : {questionInfo.duration}</p>
           <p>Total Credits : {questionInfo.credits}</p>
         </CardContent>
+
         {props.quiz.thumbnail
           ? (
-          <img
-            src={props.quiz.thumbnail}
-            width={200}
-            height={120}
+          <CardMedia
+            component="img"
+            height="194"
+            image={props.quiz.thumbnail}
             alt="Quiz Thumbnail"
           />
             )
           : (
-          <img
-            src={defaultImage}
-            width={200}
-            height={120}
+          <CardMedia
+            component="img"
+            height="194"
+            image={defaultImage}
             alt="Quiz Thumbnail"
           />
             )}
+
         <CardActions>
           <Button
             size="small"
             variant="contained"
+            disabled={!gameOn && noQuestion}
             color={gameOn ? 'error' : 'success'}
             onClick={handleGameOn}
           >
@@ -166,7 +186,7 @@ export default function QuizDiv (props) {
               size="small"
               color="success"
               variant="contained"
-              disabled={questionFinished}
+              disabled={noQuestion}
               onClick={handleAdvance}
             >
               Advance

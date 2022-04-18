@@ -13,15 +13,19 @@ export default function PlayGame () {
   const [question, setQuestion] = React.useState({});
   const [started, setStarted] = React.useState(false);
   const [result, setResult] = React.useState({});
+  const intv = React.useRef();
 
   const managePage = () => {
     apiCall(`play/${playerID}/status`, 'GET', {}).then((data) => {
       if (data.error) {
         setStarted(false);
+
         apiCall(`play/${playerID}/results`, 'GET', {}).then((data) => {
           if (!data.error) {
             setResult(data);
           }
+          // game session is finished, get the result
+          clearInterval(intv.current);
         });
       } else {
         setStarted(data.started);
@@ -34,17 +38,20 @@ export default function PlayGame () {
               setQuestion(data);
             }
           });
+        } else {
+          setStarted(false);
         }
       }
     });
   };
+  console.log(result);
 
   React.useEffect(() => {
-    managePage();
-    const intv = setInterval(() => {
+    // managePage();
+    intv.current = setInterval(() => {
       managePage();
     }, 500);
-    return () => clearInterval(intv);
+    return () => clearInterval(intv.current);
   }, []);
 
   return (

@@ -1,8 +1,11 @@
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
+import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 // import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import styles from './Style.module.css';
 import PropTypes from 'prop-types';
@@ -10,6 +13,9 @@ import ReactPlayer from 'react-player';
 import Checkbox from '@mui/material/Checkbox';
 import { apiCall } from '../components/Helper';
 import { Button } from '@mui/material';
+
+// <img src={question.media} className={styles.media} alt="Question Media" />;
+
 const colorPalette = [
   '#e4e9be',
   '#95d1cc',
@@ -28,10 +34,10 @@ const Item = styled(Button)(({ theme }) => ({
 }));
 
 export default function GameDisplay ({ question, playerName, playerID }) {
-  const [time, setTime] = React.useState(
+  const initTime =
     question.duration -
-      (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
-  );
+    (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000;
+  const [time, setTime] = React.useState(initTime);
   const [answers, setAnswers] = React.useState([]);
   const counter = React.useRef();
   React.useEffect(() => {
@@ -40,7 +46,7 @@ export default function GameDisplay ({ question, playerName, playerID }) {
         (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
     );
     counter.current = setInterval(() => {
-      setTime((time) => time - 1);
+      time > 1 ? setTime((time) => time - 1) : setTime(0);
     }, 1000);
 
     setAnswers(new Array(question.options.length).fill(false));
@@ -48,7 +54,9 @@ export default function GameDisplay ({ question, playerName, playerID }) {
   }, [question.isoTimeLastQuestionStarted]);
 
   React.useEffect(() => {
+    // time's up
     if (time <= 0) {
+      // get correct answer
       apiCall(`play/${playerID}/answer`, 'GET', {}).then((res) => {
         const newAnswers = [...answers];
         newAnswers.forEach((e, idx) => {
@@ -60,6 +68,7 @@ export default function GameDisplay ({ question, playerName, playerID }) {
         });
         setAnswers(newAnswers);
       });
+      // clear countdown interval
       clearInterval(counter.current);
     }
   }, [time]);
@@ -83,7 +92,7 @@ export default function GameDisplay ({ question, playerName, playerID }) {
 
   return (
     <>
-      <Chip label={playerName} />
+      <Chip className={styles.alignLeft} label={`Player: ${playerName}`} />
       <p>
         Type: {question.type}, Timer: {Math.ceil(time)}, Credit:{' '}
         {'🪙'.repeat(question.credit)}
@@ -101,9 +110,10 @@ export default function GameDisplay ({ question, playerName, playerID }) {
             )
           : (
               question.media && (
-            <img
-              src={question.media}
+            <CardMedia
               className={styles.media}
+              component="img"
+              image={question.media}
               alt="Question Media"
             />
               )
@@ -122,6 +132,21 @@ export default function GameDisplay ({ question, playerName, playerID }) {
             </Grid>
           ))}
         </Grid>
+        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ width: '100%', mr: 1 }}>
+            <LinearProgress
+              sx={{ height: '30px', borderRadius: '5px' }}
+              color="secondary"
+              variant="determinate"
+              value={(100 * time) / question.duration}
+            />
+          </Box>
+          <Box sx={{ minWidth: 35 }}>
+            <Typography variant="body2" color="text.secondary">{`${Math.round(
+              time
+            )} s`}</Typography>
+          </Box>
+        </Box>
       </Box>
     </>
   );

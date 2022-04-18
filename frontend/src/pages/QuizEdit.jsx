@@ -66,6 +66,14 @@ export default function QuizEdit () {
       {!loading && (
         <div id="page" className={styles.pageAlign}>
           <TextField
+            // fullWidth
+            // className={styles.alignLeft}
+            InputLabelProps={{
+              className: styles.quizName
+            }}
+            inputProps={{
+              className: styles.quizName
+            }}
             id="standard-basic-name"
             value={quiz.name}
             label="Quiz name: "
