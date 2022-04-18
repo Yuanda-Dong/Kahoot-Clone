@@ -4,6 +4,7 @@ import DropDown from '../components/DropDown';
 import { apiCall, fileToDataUrl } from '../components/Helper';
 import TextField from '@mui/material/TextField';
 import { NavTabs } from '../components/NavTab';
+import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import styles from '../components/Style.module.css';
@@ -16,7 +17,7 @@ export default function QuestionEdit () {
   const [question, setQuestion] = React.useState({
     options: ['', ''],
     correctAnswer: [false, false],
-    duration: 5,
+    duration: 30,
     credit: 1,
     type: 'Single choice'
   });
@@ -173,12 +174,13 @@ export default function QuestionEdit () {
       <NavTabs />
 
       <div className={styles.pageMargin}>
+        <h3>Question Information:</h3>
         <TextField
           id="Question"
-          label="Question"
+          label="Question Title"
           variant="outlined"
           value={question.question ? question.question : ''}
-          sx={{ width: 500 }}
+          sx={{ width: '50%' }}
           onChange={handleQuestion}
         />
         <DropDown
@@ -190,7 +192,7 @@ export default function QuestionEdit () {
 
         <DropDown
           dropId="Time Allowed (in seconds)"
-          options={[5, 10, 15, 20, 25, 30, 40, 50, 60]}
+          options={[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]}
           target={question.duration ? question.duration : 30}
           handle={handleDuration}
         ></DropDown>
@@ -201,16 +203,16 @@ export default function QuestionEdit () {
           target={question.credit ? question.credit : 1}
           handle={handleCredit}
         ></DropDown>
-        <TextField
-          id="Media upload"
-          label="Youtube link / encoded image"
-          variant="outlined"
-          value={question.media ? question.media : ''}
-          sx={{ width: 500, mr: 2 }}
-          onChange={handleMedia}
-        />
 
         <div>
+          <TextField
+            id="Media upload"
+            label="Youtube link / encoded image"
+            variant="outlined"
+            value={question.media ? question.media : ''}
+            sx={{ width: '50%', mr: 2 }}
+            onChange={handleMedia}
+          />
           <Button variant="contained" component="label">
             Upload Image [jpg/jpeg]
             <input
@@ -221,23 +223,26 @@ export default function QuestionEdit () {
             />
           </Button>
         </div>
+        <h3>Options:</h3>
+        <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: '10px' }}>
+          {answers.map((e, idx) => (
+            <Grid item xs={12} sm={6} md={6} key={idx}>
+              <div key={idx}>
+                <TextField
+                  value={e}
+                  label={`Answer ${idx + 1}`}
+                  onChange={(event) => handleAnswer(event, idx)}
+                />
+                <Checkbox
+                  checked={!!correct[idx]}
+                  onClick={(event) => handleCorrect(event, idx)}
+                />
+              </div>
+            </Grid>
+          ))}
+        </Grid>
 
-        {answers.map((e, idx) => (
-          <span style={{ display: 'inline-block' }} key={idx}>
-            <TextField
-              value={e}
-              label={`Answer ${idx + 1}`}
-              sx={{ width: 500, mt: 1.5, mb: 1.5 }}
-              onChange={(event) => handleAnswer(event, idx)}
-            />
-            <Checkbox
-              checked={!!correct[idx]}
-              onClick={(event) => handleCorrect(event, idx)}
-            />
-          </span>
-        ))}
-
-        <div>
+        <div className={styles.align}>
           <Button variant="contained" onClick={addMore}>
             Add More Answers [Max:6]
           </Button>
@@ -245,17 +250,21 @@ export default function QuestionEdit () {
             Remove Last Answer
           </Button>
         </div>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={Submit}
-          sx={{ mt: 1.5 }}
-        >
-          Submit
-        </Button>
-        <Button variant="contained" onClick={Cancel} sx={{ mt: 1.5 }}>
-          Cancel
-        </Button>
+
+        <div className={styles.align}>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={Submit}
+            sx={{ mt: 1.5 }}
+          >
+            Submit
+          </Button>
+
+          <Button variant="contained" onClick={Cancel} sx={{ mt: 1.5 }}>
+            Cancel
+          </Button>
+        </div>
       </div>
     </>
   );

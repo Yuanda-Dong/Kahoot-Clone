@@ -143,6 +143,7 @@ export default function Resultcomp ({ sessionID, quizid }) {
           pageSize={5}
           rowsPerPageOptions={[5]}
         />
+        <h3>Statistics</h3>
         {Object.keys(lineChartOne).length > 0 && (
           <Line
             data={lineChartOne}

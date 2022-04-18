@@ -20,7 +20,7 @@ export default function PlayerResult ({ result, playerName }) {
         * question credit.
       </p>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ maxWidth: '100%' }} aria-label="Player result table">
           <TableHead>
             <TableRow>
               <TableCell>Question</TableCell>
