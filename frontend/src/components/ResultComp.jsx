@@ -3,6 +3,7 @@ import styles from './/Style.module.css';
 // import { DataGrid } from '@mui/x-data-grid';
 import { apiCall } from '../components/Helper';
 import { Line } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
 import PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+Chart.register(...registerables);
 
 export default function Resultcomp ({ sessionID, quizid }) {
   const [rows, setRows] = React.useState([]);

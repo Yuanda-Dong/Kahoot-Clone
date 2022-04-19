@@ -41,7 +41,7 @@ function QuizNew () {
         <TextField
           sx={{
             width: '70%',
-            minWidth: 300
+            minWidth: 210
           }}
           id="standard-basic"
           label="Quiz Name"

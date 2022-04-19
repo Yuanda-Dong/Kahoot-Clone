@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styles from './components/Style.module.css';
 
 import Welcome from './pages/Welcome';
@@ -18,7 +18,7 @@ import PlayGame from './pages/PlayGame';
 function App () {
   return (
     <div className={styles.App}>
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/register" element={<Register />} />
@@ -58,7 +58,7 @@ function App () {
           <Route path="/report" element={<Report />} />
           <Route path="/quiz/:quizid/:questionid" element={<QuestionEdit />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

@@ -32,6 +32,7 @@ export default function Result () {
   return (
     <>
       <NavTabs />
+
       {loading && (
         <Box className={styles.loadingBox}>
           <CircularProgress />
@@ -50,6 +51,7 @@ export default function Result () {
               );
             })}
           </div>
+          {displayReport.length <= 0 && <h2>Reports</h2>}
 
           {displayReport.length > 0 && (
             <>
