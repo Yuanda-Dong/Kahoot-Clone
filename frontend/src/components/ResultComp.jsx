@@ -11,6 +11,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {
+  Chart,
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  LineElement
+} from 'chart.js';
+Chart.register(LinearScale, CategoryScale, PointElement, LineElement);
+// Chart.register(LinearScale, CategoryScale);
 
 export default function Resultcomp ({ sessionID, quizid }) {
   const [rows, setRows] = React.useState([]);
