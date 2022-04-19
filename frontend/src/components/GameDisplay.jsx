@@ -46,12 +46,13 @@ export default function GameDisplay ({ question, playerName, playerID }) {
         (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
     );
     counter.current = setInterval(() => {
+      console.log('going');
       time > 1 ? setTime((time) => time - 1) : setTime(0);
     }, 1000);
 
     setAnswers(new Array(question.options.length).fill(false));
     return () => clearInterval(counter.current);
-  }, [question.isoTimeLastQuestionStarted]);
+  }, []);
 
   React.useEffect(() => {
     // time's up
@@ -72,6 +73,8 @@ export default function GameDisplay ({ question, playerName, playerID }) {
       clearInterval(counter.current);
     }
   }, [time]);
+
+  // console.log(time);
 
   const handleClick = (event, index) => {
     const newAnswers = [...answers];
