@@ -1,10 +1,17 @@
 import React from 'react';
 import styles from './/Style.module.css';
-import { DataGrid } from '@mui/x-data-grid';
+// import { DataGrid } from '@mui/x-data-grid';
 import { apiCall } from '../components/Helper';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import PropTypes from 'prop-types';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 Chart.register(...registerables);
 
 export default function Resultcomp ({ sessionID, quizid }) {
@@ -29,7 +36,7 @@ export default function Resultcomp ({ sessionID, quizid }) {
               : 0));
       }
     }
-    return score;
+    return Math.round(score);
   };
   React.useEffect(() => {
     apiCall('admin/quiz/' + quizid, 'GET').then((res) => {
@@ -99,11 +106,15 @@ export default function Resultcomp ({ sessionID, quizid }) {
             )
             .slice(0, 5)
             .map((e, idx) => {
+              const nCorrect = e.answers.reduce(
+                (x, y) => x + (y.correct ? 1 : 0),
+                0
+              );
               return {
                 id: idx + 1,
                 name: e.name,
                 score: calScore(questions, e.answers),
-                correct: e.answers.reduce((x, y) => x + (y.correct ? 1 : 0), 0)
+                correct: `${nCorrect} / ${questions.length}`
               };
             })
         );
@@ -111,38 +122,59 @@ export default function Resultcomp ({ sessionID, quizid }) {
     });
   }, [sessionID, quizid]);
 
-  const columns = [
-    { field: 'id', headerName: 'Rank' },
-    { field: 'name', headerName: 'Name' },
-    {
-      field: 'score',
-      headerName: 'Score',
-      type: 'number'
-    },
-    {
-      field: 'correct',
-      headerName: 'Number of correct answers',
-      type: 'number',
-      width: 200
-    }
-  ];
+  // const columns = [
+  //   { field: 'id', headerName: 'Rank' },
+  //   { field: 'name', headerName: 'Name' },
+  //   {
+  //     field: 'score',
+  //     headerName: 'Score',
+  //     type: 'number'
+  //   },
+  //   {
+  //     field: 'correct',
+  //     headerName: 'Number of correct answers',
+  //     type: 'number',
+  //     width: 200
+  //   }
+  // ];
   return (
     <div className={styles.reportContent}>
       <h3>Top 5 players</h3>
       <p>
-        Score calculation rule: If the answer is submitted in less then half of
-        the allowed duration, bonus mark is given linearly with time taken. More
-        precisely, bonus mark = 2*(allowed duration - time taken) / (allowed
-        duration) * question credit , the maximum achievable mark is therefore 2
-        * question credit.
+        NOTE: If the answer is submitted in less then half of the allowed
+        duration, bonus mark is awarded.
       </p>
+      <h5>Score Calculation Rule:</h5>
+      BONUS = <sup>(2 x TIME_REMAINED x QUESTION_CREDIT)</sup>&frasl;
+      <sub>(TIME_TOTAL)</sub>, the maximum achievable mark is therefore the
+      DOUBLE of original question credit.
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-        />
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="top 5 players result table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Rank</TableCell>
+                <TableCell align="center">Name</TableCell>
+                <TableCell align="center">Score</TableCell>
+                <TableCell align="center">Correct</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell align="center">{row.id}</TableCell>
+                  <TableCell align="center">{row.name}</TableCell>
+                  <TableCell align="center">{row.score}</TableCell>
+                  <TableCell align="center">{row.correct}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
         <h3>Statistics</h3>
         {Object.keys(lineChartOne).length > 0 && (
           <Line

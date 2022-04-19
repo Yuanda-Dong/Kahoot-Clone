@@ -63,8 +63,9 @@
 
 .media {
   margin: auto;
+
   max-width: 100%;
-  max-height: 230px;
+  max-height: 300px;
   object-fit: contain !important;
 }
 .fun {
