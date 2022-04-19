@@ -216,9 +216,6 @@ export default function QuizDiv (props) {
       {/* Dialog for showing session ID */}
       <Dialog
         open={showSessionID}
-        onClose={() => {
-          setShowSessionID(false);
-        }}
         aria-labelledby="game-start-dialog-title"
         aria-describedby="game-start-dialog-description"
       >
