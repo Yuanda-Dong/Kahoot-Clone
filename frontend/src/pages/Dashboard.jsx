@@ -15,6 +15,19 @@ function Dashboard () {
   // loading icon
   const [loading, setLoading] = React.useState(true);
   const token = localStorage.getItem('authToken');
+
+  const handleJSON = async (event) => {
+    const file = event.target.files[0];
+    const data = await file.text();
+    const quizObj = JSON.parse(data);
+    if (quizObj.name && quizObj.questions && quizObj.questions.length > 0) {
+      await apiCall('admin/quiz/new', 'POST', { name: quizObj.name });
+      const quzzies = await apiCall('admin/quiz', 'GET', {});
+      const quizID = sortQuiz(quzzies.quizzes)[0].id;
+      await apiCall(`admin/quiz/${quizID}`, 'PUT', quizObj);
+      setquizModifed(true);
+    }
+  };
   // const email = localStorage.getItem('email');
   React.useEffect(() => {
     if (!token) {
@@ -63,7 +76,7 @@ function Dashboard () {
             return Promise.all(responses.map((res) => res.value.json()));
           })
           .then((data) => {
-            console.log(JSON.stringify(data[0]));
+            // console.log(JSON.stringify(data[0]));
             const qs = [];
             data.map((quiz) => {
               qs.push(quiz.questions);
@@ -88,13 +101,24 @@ function Dashboard () {
 
       {!loading && (
         <div className={styles.pageAlign}>
-          <Button
-            className={styles.space}
-            variant="outlined"
-            onClick={() => navigate('/quiz/new')}
-          >
-            Create New Quiz
-          </Button>
+          <div>
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/quiz/new')}
+              sx={{ m: 2 }}
+            >
+              Create New Quiz
+            </Button>
+            <Button variant="outlined" sx={{ m: 2 }} component="label">
+              Upload File
+              <input
+                type="file"
+                hidden
+                accept="application/JSON"
+                onChange={handleJSON}
+              />
+            </Button>
+          </div>
           <div className={styles.cardPanel}>
             {quizData.map((quiz, idx) => {
               return (
