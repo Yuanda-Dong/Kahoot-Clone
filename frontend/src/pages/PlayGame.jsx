@@ -44,6 +44,7 @@ export default function PlayGame () {
       }
     });
   };
+  // console.log(result);
 
   React.useEffect(() => {
     // managePage();
