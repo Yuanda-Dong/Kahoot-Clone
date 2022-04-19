@@ -20,12 +20,47 @@ function Dashboard () {
     const file = event.target.files[0];
     const data = await file.text();
     const quizObj = JSON.parse(data);
-    if (quizObj.name && quizObj.questions && quizObj.questions.length > 0) {
+    if (
+      quizObj.name &&
+      quizObj.questions &&
+      quizObj.questions.length > 0 &&
+      quizObj.questions.reduce(
+        (a, b) =>
+          a &&
+          b.type &&
+          ['Single choice', 'Multiple choice'].includes(b.type) &&
+          b.credit &&
+          typeof b.credit === 'number' &&
+          b.credit >= 0 &&
+          b.duration &&
+          typeof b.duration === 'number' &&
+          b.duration >= 0 &&
+          b.question &&
+          b.options &&
+          Object.keys(b.options).length >= 2 &&
+          Object.keys(b.options).length <= 6 &&
+          b.correctAnswer &&
+          Object.keys(b.correctAnswer).length > 0 &&
+          Object.keys(b.correctAnswer).length ===
+            Object.keys(b.options).length &&
+          ((b.type === 'Single choice' &&
+            b.correctAnswer.reduce((x, y) => x + (y ? 1 : 0), 0) === 1) ||
+            b.type === 'Multiple choice') &&
+          ((b.type === 'Multiple choice' &&
+            b.correctAnswer.reduce((x, y) => x + (y ? 1 : 0), 0) >= 1) ||
+            b.type === 'Single choice'),
+        true
+      )
+    ) {
       await apiCall('admin/quiz/new', 'POST', { name: quizObj.name });
       const quzzies = await apiCall('admin/quiz', 'GET', {});
       const quizID = sortQuiz(quzzies.quizzes)[0].id;
       await apiCall(`admin/quiz/${quizID}`, 'PUT', quizObj);
       setquizModifed(true);
+    } else {
+      alert(
+        'The JSON file needs to be in a specific format, please check example.json for a simple example.'
+      );
     }
   };
   // const email = localStorage.getItem('email');
@@ -110,7 +145,7 @@ function Dashboard () {
               Create New Quiz
             </Button>
             <Button variant="outlined" sx={{ m: 2 }} component="label">
-              Upload File
+              Upload JSON File
               <input
                 type="file"
                 hidden
