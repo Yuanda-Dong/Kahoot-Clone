@@ -106,3 +106,8 @@
 .listStyle {
   list-style-type: none;
 }
+
+.optionGrid {
+  display: flex;
+  justify-content: center;
+}

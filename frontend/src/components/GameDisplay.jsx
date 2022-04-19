@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from './Style.module.css';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
@@ -14,7 +14,16 @@ import Checkbox from '@mui/material/Checkbox';
 import { apiCall } from '../components/Helper';
 import { Button } from '@mui/material';
 
-// <img src={question.media} className={styles.media} alt="Question Media" />;
+const theme = createTheme({
+  palette: {
+    bonus: {
+      main: '#83BD75'
+    },
+    noBonus: {
+      main: '#CD1818'
+    }
+  }
+});
 
 const colorPalette = [
   '#e4e9be',
@@ -90,10 +99,12 @@ export default function GameDisplay ({ question, playerName, playerID }) {
   return (
     <>
       <Chip className={styles.alignLeft} label={`Player: ${playerName}`} />
+
       <p>
-        Type: {question.type}, Timer: {Math.ceil(time)}, Credit:{' '}
-        {'🪙'.repeat(question.credit)}
+        <b>Type:</b> {question.type}, <b>Time</b> {question.duration},{' '}
+        <b>Credit:</b> {'🪙'.repeat(question.credit)}
       </p>
+      <p>When the Timer Bar turns red, no bonus mark will be awarded.</p>
       <h1>{question.question}</h1>
       <Box className={styles.pageAlign}>
         {question.media && question.media.includes('youtube')
@@ -115,9 +126,13 @@ export default function GameDisplay ({ question, playerName, playerID }) {
             />
               )
             )}
-        <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: '10px' }}>
+        <Grid
+          className={styles.optionGrid}
+          container
+          spacing={{ xs: 2, md: 3 }}
+        >
           {question.options.map((op, index) => (
-            <Grid item xs={12} sm={12} md={6} key={index}>
+            <Grid item xs={11} sm={11} md={5} key={index}>
               <Item
                 disabled={time <= 0}
                 sx={{ backgroundColor: colorPalette[index], width: '100%' }}
@@ -129,18 +144,26 @@ export default function GameDisplay ({ question, playerName, playerID }) {
             </Grid>
           ))}
         </Grid>
-        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
           <Box sx={{ width: '100%', mr: 1 }}>
-            <LinearProgress
-              sx={{
-                height: '30px',
-                borderRadius: '5px',
-                transitionTimingFunction: 'linear'
-              }}
-              color="secondary"
-              variant="determinate"
-              value={(100 * time) / question.duration}
-            />
+            <ThemeProvider theme={theme}>
+              <LinearProgress
+                sx={{
+                  height: '30px',
+                  borderRadius: '5px',
+                  transitionTimingFunction: 'linear'
+                }}
+                color={time > question.duration / 2 ? 'bonus' : 'noBonus'}
+                variant="determinate"
+                value={(100 * time) / question.duration}
+              />
+            </ThemeProvider>
           </Box>
           <Box sx={{ minWidth: 35 }}>
             <Typography variant="body2" color="text.secondary">{`${Math.round(
