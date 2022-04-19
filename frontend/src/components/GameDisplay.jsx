@@ -37,21 +37,15 @@ export default function GameDisplay ({ question, playerName, playerID }) {
   const initTime =
     question.duration -
     (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000;
-  const [time, setTime] = React.useState(initTime);
+  const [time, setTime] = React.useState(initTime >= 0 ? initTime : 0);
   const [answers, setAnswers] = React.useState([]);
-  const counter = React.useRef();
   React.useEffect(() => {
-    setTime(
+    const timezzz =
       question.duration -
-        (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000
-    );
-    counter.current = setInterval(() => {
-      time > 1 ? setTime((time) => time - 1) : setTime(0);
-    }, 1000);
-
+      (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000;
+    setTime(timezzz >= 0 ? timezzz : 0);
     setAnswers(new Array(question.options.length).fill(false));
-    return () => clearInterval(counter.current);
-  }, [question.isoTimeLastQuestionStarted]);
+  }, [question]);
 
   React.useEffect(() => {
     // time's up
@@ -68,8 +62,6 @@ export default function GameDisplay ({ question, playerName, playerID }) {
         });
         setAnswers(newAnswers);
       });
-      // clear countdown interval
-      clearInterval(counter.current);
     }
   }, [time]);
 
@@ -86,7 +78,6 @@ export default function GameDisplay ({ question, playerName, playerID }) {
       indices.push(idx);
       idx = newAnswers.indexOf(true, idx + 1);
     }
-    // console.log(indices);
     apiCall(`play/${playerID}/answer`, 'PUT', { answerIds: indices });
   };
 
