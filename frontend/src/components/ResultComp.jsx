@@ -3,7 +3,6 @@ import styles from './/Style.module.css';
 // import { DataGrid } from '@mui/x-data-grid';
 import { apiCall } from '../components/Helper';
 import { Line } from 'react-chartjs-2';
-import { Chart, registerables } from 'chart.js';
 import PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,7 +21,7 @@ import {
 Chart.register(LinearScale, CategoryScale, PointElement, LineElement);
 // Chart.register(LinearScale, CategoryScale);
 
-export default function Resultcomp({ sessionID, quizid }) {
+export default function Resultcomp ({ sessionID, quizid }) {
   const [rows, setRows] = React.useState([]);
   const [lineChartOne, setlineChartOne] = React.useState({});
   const [lineChartTwo, setlineChartTwo] = React.useState({});
