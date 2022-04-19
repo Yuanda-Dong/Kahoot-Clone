@@ -6,7 +6,6 @@ import ListSubheader from '@mui/material/ListSubheader';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
 
 describe('ReportList', () => {
   const onClick = jest.fn();

@@ -32,6 +32,8 @@ function RegisterForm () {
   return (
     <Box className={styles.flexCol} component="form">
       <TextField
+        role={'input'}
+        aria-description="Email input"
         required
         id="email"
         label="Email"
@@ -40,6 +42,8 @@ function RegisterForm () {
         }}
       />
       <TextField
+        role={'input'}
+        aria-description="Password input"
         className={styles.space}
         id="password"
         label="Password"
@@ -47,16 +51,23 @@ function RegisterForm () {
         onChange={(e) => setPassword(e.target.value)}
       />
       <TextField
+        role={'input'}
+        aria-description="Name input"
         required
         id="name"
         label="Name"
         onChange={(e) => setName(e.target.value)}
       />
       <Box className={`${styles.align} ${styles.space}`}>
-        <Button variant="outlined" onClick={onSubmit}>
+        <Button
+          aria-description="Button to confirm registration"
+          variant="outlined"
+          onClick={onSubmit}
+        >
           Register
         </Button>
         <Button
+          aria-description="Button to cancel registration"
           variant="outlined"
           color="error"
           onClick={() => navigate('/login')}

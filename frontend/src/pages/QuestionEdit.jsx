@@ -213,7 +213,11 @@ export default function QuestionEdit () {
             sx={{ width: '50%', mr: 2 }}
             onChange={handleMedia}
           />
-          <Button variant="contained" component="label">
+          <Button
+            aria-describedby="Media upload"
+            variant="contained"
+            component="label"
+          >
             Upload Image [jpg/jpeg]
             <input
               type="file"
@@ -229,6 +233,7 @@ export default function QuestionEdit () {
             <Grid item xs={12} sm={6} md={6} key={idx}>
               <div>
                 <TextField
+                  id={`Option-${idx}`}
                   sx={{
                     width: '90%'
                   }}
@@ -237,6 +242,7 @@ export default function QuestionEdit () {
                   onChange={(event) => handleAnswer(event, idx)}
                 />
                 <Checkbox
+                  aria-describedby={`Option-${idx}`}
                   checked={!!correct[idx]}
                   onClick={(event) => handleCorrect(event, idx)}
                 />
@@ -246,16 +252,26 @@ export default function QuestionEdit () {
         </Grid>
 
         <div className={styles.align}>
-          <Button variant="contained" onClick={addMore}>
+          <Button
+            aria-description="Button to add more options"
+            variant="contained"
+            onClick={addMore}
+          >
             Add More Answers [Max:6]
           </Button>
-          <Button variant="contained" color="error" onClick={removeAns}>
+          <Button
+            aria-description="Button to delete an option"
+            variant="contained"
+            color="error"
+            onClick={removeAns}
+          >
             Remove Last Answer
           </Button>
         </div>
 
         <div className={styles.align}>
           <Button
+            aria-description="Button to submit question"
             variant="contained"
             color="success"
             onClick={Submit}
@@ -264,7 +280,12 @@ export default function QuestionEdit () {
             Submit
           </Button>
 
-          <Button variant="contained" onClick={Cancel} sx={{ mt: 1.5 }}>
+          <Button
+            aria-description="Button to cancel question edit"
+            variant="contained"
+            onClick={Cancel}
+            sx={{ mt: 1.5 }}
+          >
             Cancel
           </Button>
         </div>

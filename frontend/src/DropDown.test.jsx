@@ -1,14 +1,11 @@
 import React from 'react';
 import DropDown from './components/DropDown';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
 
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Experimental_CssVarsProvider } from '@mui/material';
 
 describe('DropDown', () => {
   const props = {

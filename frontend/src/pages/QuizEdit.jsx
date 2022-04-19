@@ -87,7 +87,11 @@ export default function QuizEdit () {
             : (
             <img src={defaultImage} width={345} alt="Quiz Thumbnail" />
               )}
-          <Button variant="contained" component="label">
+          <Button
+            aria-description="Button to change thumbnail of the quiz"
+            variant="contained"
+            component="label"
+          >
             Change thumbnail [jpg/jpeg]
             <input
               type="file"
@@ -97,6 +101,7 @@ export default function QuizEdit () {
             />
           </Button>
           <Button
+            aria-description="Button to add a new question"
             className={styles.space}
             variant="outlined"
             onClick={() => {

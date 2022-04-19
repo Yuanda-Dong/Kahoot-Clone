@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import RegisterForm from './components/RegisterForm';
-import Box from '@mui/material/Box';
 import { shallow } from 'enzyme';
 
 describe('RegisterForm', () => {

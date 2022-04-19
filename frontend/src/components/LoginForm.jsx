@@ -27,6 +27,8 @@ function LoginForm () {
   return (
     <Box className={styles.flexCol} component="form">
       <TextField
+        role={'input'}
+        aria-description="Email input"
         required
         id="outlined-required"
         label="Email"
@@ -35,6 +37,8 @@ function LoginForm () {
         }}
       />
       <TextField
+        role={'input'}
+        aria-description="Password input"
         className={styles.space}
         id="outlined-password-input"
         label="Password"
@@ -42,7 +46,12 @@ function LoginForm () {
         onChange={(e) => setPassword(e.target.value)}
       />
       <Box className={styles.align}>
-        <Button className={styles.space} variant="outlined" onClick={onLogin}>
+        <Button
+          aria-description="Button to confirm login"
+          className={styles.space}
+          variant="outlined"
+          onClick={onLogin}
+        >
           Login
         </Button>
       </Box>
