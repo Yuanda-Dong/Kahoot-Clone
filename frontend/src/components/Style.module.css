@@ -102,3 +102,7 @@
 .quizName {
   font-size: 30px;
 }
+
+.listStyle {
+  list-style-type: none;
+}

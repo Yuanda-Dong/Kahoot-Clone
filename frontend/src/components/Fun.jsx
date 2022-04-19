@@ -4,17 +4,15 @@ import rabbit from './rabbit.png';
 export default function Fun () {
   return (
     <div className={styles.fun}>
-      <h1>Lobby </h1>
+      <h1>Please wait for your teacher to start... </h1>
 
       <img
         src={rabbit}
         alt="rabbit image"
         // width={'60%'}
       />
-      <p>
-        Watch some funny cat videos while you are waiting for the game to start
-      </p>
-      <ul>
+      <p>Watch some funny cat videos while you are waiting</p>
+      <ul className={styles.listStyle}>
         <li>
           <a href="https://www.youtube.com/watch?v=aFuUidBR1aQ">Cat Video 1</a>
         </li>
