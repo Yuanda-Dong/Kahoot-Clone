@@ -54,6 +54,7 @@ function Dashboard () {
           })
         );
         // setQuizzes(requests);
+
         return requests;
       })
       .then((quizzes) => {
@@ -62,6 +63,7 @@ function Dashboard () {
             return Promise.all(responses.map((res) => res.value.json()));
           })
           .then((data) => {
+            console.log(JSON.stringify(data[0]));
             const qs = [];
             data.map((quiz) => {
               qs.push(quiz.questions);
@@ -74,8 +76,6 @@ function Dashboard () {
       });
   }, [quizModified]);
 
-  // console.log(jsonData);
-
   return (
     <>
       <NavTabs />
@@ -85,7 +85,6 @@ function Dashboard () {
           <CircularProgress />
         </Box>
       )}
-      {/* {!loading && console.log(questionData)} */}
 
       {!loading && (
         <div className={styles.pageAlign}>

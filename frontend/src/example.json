@@ -1,1 +1,24 @@
-"{\"name\":\"John\", \"thumbnail\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\", \"questions\": [{\"question\":\"This is Question 1\", \"options\":[\"aaa\",\"bbb\",\"ccc\"], \"correctAnswer\":[true,false,true],\"duration\":15, \"credit\":3, \"type\":\"Multiple choice\"}]}"
+{
+  "name": "English",
+  "thumbnail": "link_to_an_image",
+  "questions": [
+    {
+      "options": ["A", "B", "C", "D", "E"],
+      "correctAnswer": [true, false, false, true, false],
+      "thumbnail": "link_to_an_image",
+      "duration": 30,
+      "credit": 4,
+      "type": "Multiple choice",
+      "question": "Question 1"
+    },
+    {
+      "options": ["A", "B", "C", "D"],
+      "correctAnswer": [false, false, true, false],
+      "thumbnail": "link_to_an_YOUTUBE_video",
+      "duration": 30,
+      "credit": 5,
+      "type": "Single choice",
+      "question": "Question 1 "
+    }
+  ]
+}
