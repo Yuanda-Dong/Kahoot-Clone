@@ -31,8 +31,8 @@ export default function Resultcomp ({ sessionID, quizid }) {
         score +=
           (answers[i].correct ? 1 : 0) *
           (credit +
-            (credit + timeTaken < duration / 2
-              ? ((2 * (duration - timeTaken)) / duration) * credit
+            (timeTaken < duration / 2
+              ? ((duration - 2 * timeTaken) / duration) * credit
               : 0));
       }
     }
@@ -52,7 +52,8 @@ export default function Resultcomp ({ sessionID, quizid }) {
             data: questions
               .map((_, idx) =>
                 res.results.reduce(
-                  (x, y) => x + (y.answers[idx].correct ? 1 : 0),
+                  (x, y) =>
+                    x + (y.answers[idx] && y.answers[idx].correct ? 1 : 0),
                   0
                 )
               )
@@ -78,7 +79,7 @@ export default function Resultcomp ({ sessionID, quizid }) {
                 res.results.reduce(
                   (x, y) =>
                     x +
-                    (y.answers[idx].answeredAt
+                    (y.answers[idx] && y.answers[idx].answeredAt
                       ? (new Date(y.answers[idx].answeredAt) -
                           new Date(y.answers[idx].questionStartedAt)) /
                         1000
@@ -141,8 +142,11 @@ export default function Resultcomp ({ sessionID, quizid }) {
     <div className={styles.reportContent}>
       <h3>Top 5 players</h3>
       <p>
-        NOTE: If the answer is submitted in less then half of the allowed
-        duration, bonus mark is awarded.
+        Score calculation rule: If the answer is submitted in less then half of
+        the allowed duration, bonus mark is given linearly with time taken. More
+        precisely, bonus mark = (allowed duration - 2 * time taken) / (allowed
+        duration) * question credit , the maximum achievable mark is therefore 2
+        * question credit.
       </p>
       <h5>Score Calculation Rule:</h5>
       BONUS = <sup>(2 x TIME_REMAINED x QUESTION_CREDIT)</sup>&frasl;

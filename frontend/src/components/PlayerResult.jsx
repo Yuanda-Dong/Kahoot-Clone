@@ -12,6 +12,7 @@ export default function PlayerResult ({ result, playerName }) {
   return (
     <>
       <h1>Result for {playerName}</h1>
+<<<<<<< HEAD
       <div>
         <p>
           NOTE: If the answer is submitted in less then half of the allowed
@@ -25,6 +26,15 @@ export default function PlayerResult ({ result, playerName }) {
         </p>
       </div>
 
+=======
+      <p>
+        Score calculation rule: If the answer is submitted in less then half of
+        the allowed duration, bonus mark is given linearly with time taken. More
+        precisely, bonus mark = (allowed duration - 2 * time taken) / (allowed
+        duration) * question credit , the maximum achievable mark is therefore 2
+        * question credit.
+      </p>
+>>>>>>> feab43c (zz)
       <TableContainer component={Paper}>
         <Table sx={{ maxWidth: '100%' }} aria-label="Player result table">
           <TableHead>
