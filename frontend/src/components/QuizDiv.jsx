@@ -138,8 +138,8 @@ export default function QuizDiv (props) {
           </Typography>
 
           <p>Number of Questions : {questionInfo.n}</p>
-          <p>Time Limit : {questionInfo.duration}</p>
-          <p>Total Credits : {questionInfo.credits}</p>
+          <p>Time Limit : {`${questionInfo.duration} seconds`}</p>
+          <p>Total Credits : {`${questionInfo.credits} 🪙`}</p>
         </CardContent>
 
         {props.quiz.thumbnail
