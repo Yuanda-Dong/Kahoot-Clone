@@ -227,8 +227,11 @@ export default function QuestionEdit () {
         <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: '10px' }}>
           {answers.map((e, idx) => (
             <Grid item xs={12} sm={6} md={6} key={idx}>
-              <div key={idx}>
+              <div>
                 <TextField
+                  sx={{
+                    width: '90%'
+                  }}
                   value={e}
                   label={`Answer ${idx + 1}`}
                   onChange={(event) => handleAnswer(event, idx)}
