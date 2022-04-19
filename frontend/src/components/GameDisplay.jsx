@@ -128,7 +128,11 @@ export default function GameDisplay ({ question, playerName, playerID }) {
         <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
           <Box sx={{ width: '100%', mr: 1 }}>
             <LinearProgress
-              sx={{ height: '30px', borderRadius: '5px', transition: 'linear' }}
+              sx={{
+                height: '30px',
+                borderRadius: '5px',
+                transitionTimingFunction: 'linear'
+              }}
               color="secondary"
               variant="determinate"
               value={(100 * time) / question.duration}
