@@ -12,9 +12,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-<<<<<<< HEAD
-Chart.register(...registerables);
-=======
 import {
   Chart,
   LinearScale,
@@ -24,9 +21,8 @@ import {
 } from 'chart.js';
 Chart.register(LinearScale, CategoryScale, PointElement, LineElement);
 // Chart.register(LinearScale, CategoryScale);
->>>>>>> 6d6ff0d87010eaf809d46cecc75b64a38649f646
 
-export default function Resultcomp ({ sessionID, quizid }) {
+export default function Resultcomp({ sessionID, quizid }) {
   const [rows, setRows] = React.useState([]);
   const [lineChartOne, setlineChartOne] = React.useState({});
   const [lineChartTwo, setlineChartTwo] = React.useState({});
