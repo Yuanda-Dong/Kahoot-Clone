@@ -44,12 +44,16 @@ export default function GameDisplay ({ question, playerName, playerID }) {
       question.duration -
       (new Date() - new Date(question.isoTimeLastQuestionStarted)) / 1000;
     setTime(timezzz >= 0 ? timezzz : 0);
-    setAnswers(new Array(question.options.length).fill(false));
   }, [question]);
+
+  React.useEffect(() => {
+    setAnswers(new Array(question.options.length).fill(false));
+  }, [question.isoTimeLastQuestionStarted]);
 
   React.useEffect(() => {
     // time's up
     if (time <= 0) {
+      console.log('SPAM');
       // get correct answer
       apiCall(`play/${playerID}/answer`, 'GET', {}).then((res) => {
         const newAnswers = [...answers];

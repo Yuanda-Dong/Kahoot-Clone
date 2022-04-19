@@ -43,7 +43,6 @@ export default function PlayerResult ({ result, playerName }) {
                 </TableCell>
                 <TableCell align="right">
                   {r.answeredAt &&
-                    r.correct &&
                     ` ${
                       (new Date(r.answeredAt) - new Date(r.questionStartedAt)) /
                       1000
