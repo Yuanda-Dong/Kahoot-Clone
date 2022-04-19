@@ -14,12 +14,10 @@ export default function Fun () {
       <p>Watch some funny cat videos while you are waiting</p>
       <ul className={styles.listStyle}>
         <li>
-          <a href="https://www.youtube.com/watch?v=aFuUidBR1aQ">Cat Video 1</a>
+          <a href="https://www.youtube.com/watch?v=M5PbLfVGOQs">Cat Video 1</a>
         </li>
         <li>
-          <a href="https://www.youtube.com/watch?v=tpiyEe_CqB4&t=17s">
-            Cat Video 2
-          </a>
+          <a href="https://www.youtube.com/watch?v=tpiyEe_CqB4">Cat Video 2</a>
         </li>
       </ul>
     </div>

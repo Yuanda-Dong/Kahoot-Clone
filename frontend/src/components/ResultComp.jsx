@@ -12,7 +12,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+<<<<<<< HEAD
 Chart.register(...registerables);
+=======
+import {
+  Chart,
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  LineElement
+} from 'chart.js';
+Chart.register(LinearScale, CategoryScale, PointElement, LineElement);
+// Chart.register(LinearScale, CategoryScale);
+>>>>>>> 6d6ff0d87010eaf809d46cecc75b64a38649f646
 
 export default function Resultcomp ({ sessionID, quizid }) {
   const [rows, setRows] = React.useState([]);
@@ -148,10 +160,6 @@ export default function Resultcomp ({ sessionID, quizid }) {
         duration) * question credit , the maximum achievable mark is therefore 2
         * question credit.
       </p>
-      <h5>Score Calculation Rule:</h5>
-      BONUS = <sup>(2 x TIME_REMAINED x QUESTION_CREDIT)</sup>&frasl;
-      <sub>(TIME_TOTAL)</sub>, the maximum achievable mark is therefore the
-      DOUBLE of original question credit.
       <div style={{ height: 400, width: '100%' }}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="top 5 players result table">

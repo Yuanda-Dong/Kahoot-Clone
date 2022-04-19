@@ -48,14 +48,14 @@ export default function QuizDiv (props) {
   const handleEdit = () => {
     navigate('/quiz/' + props.quiz.id);
   };
-  console.log(props.questions.length === 0);
+  // console.log(props.questions.length === 0);
   const [noQuestion, setNoQuestion] = React.useState(
     props.questions.length === 0
   );
   const handleAdvance = () => {
     apiCall(`admin/quiz/${props.quiz.id}/advance`, 'POST', {}).then((res) => {
-      console.log(res.stage);
-      console.log(props.questions.length);
+      // console.log(res.stage);
+      // console.log(props.questions.length);
       if (res.stage === props.questions.length - 1) {
         // setGameOn(false);
         setNoQuestion(true);
