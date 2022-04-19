@@ -52,7 +52,7 @@ export default function GameDisplay ({ question, playerName, playerID }) {
 
     setAnswers(new Array(question.options.length).fill(false));
     return () => clearInterval(counter.current);
-  }, []);
+  }, [question.isoTimeLastQuestionStarted]);
 
   React.useEffect(() => {
     // time's up
