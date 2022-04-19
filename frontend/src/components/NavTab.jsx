@@ -2,6 +2,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { Link } from 'react-router-dom';
+import styles from './Style.module.css';
 
 import { apiCall } from './Helper';
 
@@ -17,8 +19,12 @@ export function NavTabLogin () {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={false} aria-label="basic tabs example">
-          <Tab label="Login" {...loginTabProps(0)} href="/login" />
-          <Tab label="Register" {...loginTabProps(1)} href="/register" />
+          <Link role={'login'} className={styles.link} to="/login">
+            <Tab label="Login" {...loginTabProps(0)} />
+          </Link>
+          <Link role={'register'} className={styles.link} to="/register">
+            <Tab label="Register" {...loginTabProps(1)} />
+          </Link>
         </Tabs>
       </Box>
     </Box>
@@ -41,20 +47,15 @@ export function NavTabs () {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={false} aria-label="basic tabs example">
-          <Tab
-            index={0}
-            label="Dashboard"
-            {...homeTabProps(0)}
-            href="/dashboard"
-          />
-          <Tab index={1} label="Report" {...homeTabProps(1)} href="/report" />
-          <Tab
-            index={2}
-            label="Logout"
-            {...homeTabProps(1)}
-            href="/"
-            onClick={logOut}
-          />
+          <Link role={'dashboard'} className={styles.link} to="/dashboard">
+            <Tab label="Dashboard" {...homeTabProps(0)} />
+          </Link>
+          <Link role={'report'} className={styles.link} to="/report">
+            <Tab label="Report" {...homeTabProps(1)} />
+          </Link>
+          <Link role={'logout'} className={styles.link} to="/">
+            <Tab label="Logout" {...homeTabProps(1)} onClick={logOut} />
+          </Link>
         </Tabs>
       </Box>
     </Box>

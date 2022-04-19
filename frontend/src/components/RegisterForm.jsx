@@ -3,7 +3,6 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-// import { styled } from '@mui/material/styles'
 import { apiCall, emailValid, passwordValid } from './Helper';
 import styles from './Style.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +20,6 @@ function RegisterForm () {
           if (data.token) {
             localStorage.setItem('authToken', data.token);
             localStorage.setItem('email', email);
-            console.log(data);
             navigate('/dashboard');
           } else if (data.error) {
             alert(data.error);

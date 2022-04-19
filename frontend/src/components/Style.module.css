@@ -6,6 +6,24 @@
   align-items: center;
 }
 
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.header {
+  text-align: center;
+  color: #92ba92;
+}
+
 .pageMargin {
   width: 80%;
   margin: 5%;

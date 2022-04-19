@@ -18,7 +18,6 @@ export default function Join () {
       if (data.error) {
         alert(data.error);
       } else {
-        console.log(data.playerId);
         navigate(`/play/${sessionID}/${name}=${data.playerId}`);
       }
     });
