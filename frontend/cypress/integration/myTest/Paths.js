@@ -37,7 +37,7 @@ context('Happy Path for App', () => {
     // expect quizname = math
 
     // Edit quiz
-    cy.get('.Style_cardPanel__REyE0').find('button').eq(1).click();
+    cy.get('.Style_cardPanel__REyE0').find('button').eq(0).click();
     // newQuestion
     cy.get('#newQuestion').click();
     // cy.wait(1000);
@@ -135,7 +135,7 @@ context('Happy Path for App', () => {
     cy.contains('Time Limit : 60 seconds').should('be.visible');
 
     // Edit quiz
-    cy.get('.Style_cardPanel__REyE0').find('button').eq(1).click();
+    cy.get('.Style_cardPanel__REyE0').find('button').eq(0).click();
     // edit question
 
     const newName = 'New Question Name';
