@@ -4,3 +4,4 @@
 - implemented default quiz thumbnail when no image is uploaded
 - supported editing of quiz name and thumbnail
 - implemented validity check on email and password (upper + lower + special character + min 8)
+- implemented a color changing countdown bar, so that it drops to empty when time is up, and changes color from green to red when no bonus mark will be awarded

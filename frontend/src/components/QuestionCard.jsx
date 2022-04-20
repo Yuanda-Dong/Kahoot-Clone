@@ -117,11 +117,11 @@ export default function QuestionCard (props) {
         </CardContent>
 
         <CardActions>
-          <Button size="small" color="error" onClick={deleteQuestion}>
-            Delete
-          </Button>
           <Button size="small" onClick={navigateToQuestionEdit}>
             Edit
+          </Button>
+          <Button size="small" color="error" onClick={deleteQuestion}>
+            Delete
           </Button>
         </CardActions>
       </Card>
