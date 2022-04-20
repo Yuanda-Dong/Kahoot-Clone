@@ -1,61 +1,75 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Link } from 'react-router-dom';
-import styles from './Style.module.css';
 
 import { apiCall } from './Helper';
-
-function loginTabProps (index) {
-  return {
-    id: `login-tab-${index}`,
-    'aria-controls': `login-tabpanel-${index}`
-  };
-}
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export function NavTabLogin () {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname;
+  let value = false;
+  switch (pathname) {
+    case '/login':
+      value = 0;
+      break;
+    case '/register':
+      value = 1;
+      break;
+  }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={false} aria-label="basic tabs example">
-          <Link role={'login'} className={styles.link} to="/login">
-            <Tab label="Login" {...loginTabProps(0)} />
-          </Link>
-          <Link role={'register'} className={styles.link} to="/register">
-            <Tab label="Register" {...loginTabProps(1)} />
-          </Link>
+        <Tabs value={value} aria-label="navigation bar" textColor="inherit">
+          <Tab id="TabLogin" label="Login" onClick={() => navigate('/login')} />
+          <Tab
+            id="TabRegister"
+            label="Register"
+            onClick={() => navigate('/register')}
+          />
         </Tabs>
       </Box>
     </Box>
   );
 }
 
-function homeTabProps (index) {
-  return {
-    id: `home-tab-${index}`,
-    'aria-controls': `home-tabpanel-${index}`
-  };
-}
-
 export function NavTabs () {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname;
+  let value = false;
+  switch (pathname) {
+    case '/dashboard':
+      value = 0;
+      break;
+    case '/report':
+      value = 1;
+      break;
+  }
+
   const logOut = () => {
-    localStorage.clear();
     apiCall('admin/auth/logout', 'POST', {});
+    navigate('/');
+    localStorage.clear();
   };
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={false} aria-label="basic tabs example">
-          <Link role={'dashboard'} className={styles.link} to="/dashboard">
-            <Tab label="Dashboard" {...homeTabProps(0)} />
-          </Link>
-          <Link role={'report'} className={styles.link} to="/report">
-            <Tab label="Report" {...homeTabProps(1)} />
-          </Link>
-          <Link role={'logout'} className={styles.link} to="/">
-            <Tab label="Logout" {...homeTabProps(1)} onClick={logOut} />
-          </Link>
+        <Tabs value={value} aria-label="navigation bar">
+          <Tab
+            id="TabDashboard"
+            label="Dashboard"
+            onClick={() => navigate('/dashboard')}
+          />
+          <Tab
+            id="TabReport"
+            label="Report"
+            onClick={() => navigate('/report')}
+          />
+          <Tab id="TabLogout" label="Logout" onClick={logOut} />
         </Tabs>
       </Box>
     </Box>

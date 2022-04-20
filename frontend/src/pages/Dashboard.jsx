@@ -63,7 +63,6 @@ function Dashboard () {
       );
     }
   };
-  // const email = localStorage.getItem('email');
   React.useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -72,9 +71,9 @@ function Dashboard () {
 
   // fetch quiz data
   const [quizData, getQuizData] = React.useState([]);
-  // const [quizzes, setQuizzes] = React.useState([]);
   const [questionData, setQuestionData] = React.useState([]);
   const [quizModified, setquizModifed] = React.useState(false);
+
   React.useEffect(() => {
     setLoading(true);
     const IDs = [];
@@ -101,7 +100,6 @@ function Dashboard () {
             }
           })
         );
-        // setQuizzes(requests);
 
         return requests;
       })
@@ -111,15 +109,14 @@ function Dashboard () {
             return Promise.all(responses.map((res) => res.value.json()));
           })
           .then((data) => {
-            // console.log(JSON.stringify(data[0]));
             const qs = [];
             data.map((quiz) => {
               qs.push(quiz.questions);
               setQuestionData(qs);
               return null;
             });
-            setLoading(false);
             setquizModifed(false);
+            setLoading(false);
           });
       });
   }, [quizModified]);
@@ -141,12 +138,19 @@ function Dashboard () {
               variant="outlined"
               onClick={() => navigate('/quiz/new')}
               sx={{ m: 2 }}
+              id="buttonCreateQuiz"
             >
               Create New Quiz
             </Button>
-            <Button variant="outlined" sx={{ m: 2 }} component="label">
+            <Button
+              aria-label="Upload"
+              variant="outlined"
+              sx={{ m: 2 }}
+              component="label"
+            >
               Upload JSON File
               <input
+                id="uploadQuiz"
                 type="file"
                 hidden
                 accept="application/JSON"

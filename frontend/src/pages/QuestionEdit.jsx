@@ -176,7 +176,7 @@ export default function QuestionEdit () {
       <div className={styles.pageMargin}>
         <h3>Question Information:</h3>
         <TextField
-          id="Question"
+          id="questionName"
           label="Question Title"
           variant="outlined"
           value={question.question ? question.question : ''}
@@ -184,6 +184,7 @@ export default function QuestionEdit () {
           onChange={handleQuestion}
         />
         <DropDown
+          id="questionType"
           dropId="Question Type"
           options={['Single choice', 'Multiple choice']}
           target={question.type ? question.type : 'Single choice'}
@@ -253,14 +254,16 @@ export default function QuestionEdit () {
 
         <div className={styles.align}>
           <Button
-            aria-description="Button to add more options"
+            id="optionAdd"
+            aria-label="add option"
             variant="contained"
             onClick={addMore}
           >
             Add More Answers [Max:6]
           </Button>
           <Button
-            aria-description="Button to delete an option"
+            id="optionRemove"
+            aria-label="remove option"
             variant="contained"
             color="error"
             onClick={removeAns}
@@ -271,7 +274,8 @@ export default function QuestionEdit () {
 
         <div className={styles.align}>
           <Button
-            aria-description="Button to submit question"
+            id="questionConfirm"
+            aria-label="submit"
             variant="contained"
             color="success"
             onClick={Submit}
@@ -281,7 +285,8 @@ export default function QuestionEdit () {
           </Button>
 
           <Button
-            aria-description="Button to cancel question edit"
+            id="questionCancel"
+            aria-label="cancel"
             variant="contained"
             onClick={Cancel}
             sx={{ mt: 1.5 }}

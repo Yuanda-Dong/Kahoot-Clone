@@ -28,9 +28,9 @@ function LoginForm () {
     <Box className={styles.flexCol} component="form">
       <TextField
         role={'input'}
-        aria-description="Email input"
+        aria-label="Email input"
         required
-        id="outlined-required"
+        id="loginEmail"
         label="Email"
         onChange={(e) => {
           setEmail(e.target.value);
@@ -38,16 +38,18 @@ function LoginForm () {
       />
       <TextField
         role={'input'}
-        aria-description="Password input"
+        aria-label="Password input"
         className={styles.space}
-        id="outlined-password-input"
+        id="loginPassword"
         label="Password"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
       />
       <Box className={styles.align}>
         <Button
-          aria-description="Button to confirm login"
+          role={'login'}
+          id="loginConfirm"
+          aria-label="confirm login"
           className={styles.space}
           variant="outlined"
           onClick={onLogin}

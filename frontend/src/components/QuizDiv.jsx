@@ -15,19 +15,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { apiCall, defaultImage } from '../components/Helper';
 import styles from '../components/Style.module.css';
 
-// <img
-//   src={props.quiz.thumbnail}
-//   width={200}
-//   height={120}
-//   alt="Quiz Thumbnail"
-// />
-// <img
-//   src={defaultImage}
-//   width={200}
-//   height={120}
-//   alt="Quiz Thumbnail"
-// />
-
 export default function QuizDiv (props) {
   const navigate = useNavigate();
 
@@ -197,6 +184,7 @@ export default function QuizDiv (props) {
 
       {/* alert dialog for deleteing a quiz */}
       <Dialog
+        id="deleteDialog"
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -206,15 +194,18 @@ export default function QuizDiv (props) {
         </DialogTitle>
 
         <DialogActions>
-          <Button onClick={deleteGame} autoFocus>
+          <Button id="deleteConfirm" onClick={deleteGame} autoFocus>
             Yes
           </Button>
-          <Button onClick={handleClose}>No</Button>
+          <Button id="deleteCancel" onClick={handleClose}>
+            No
+          </Button>
         </DialogActions>
       </Dialog>
 
       {/* Dialog for showing session ID */}
       <Dialog
+        id="startDialog"
         open={showSessionID}
         aria-labelledby="game-start-dialog-title"
         aria-describedby="game-start-dialog-description"
@@ -224,13 +215,13 @@ export default function QuizDiv (props) {
         </DialogTitle>
 
         <DialogContent>
-          <DialogContentText id="game-start-dialog-description">
+          <DialogContentText id="gameSession">
             Session ID: {sessionID}
           </DialogContentText>
         </DialogContent>
 
         <DialogActions>
-          <Button autoFocus onClick={copyToClickboard}>
+          <Button autoFocus onClick={copyToClickboard} id="butonCopy">
             Copy Link
           </Button>
         </DialogActions>
@@ -238,6 +229,7 @@ export default function QuizDiv (props) {
 
       {/* Dialog for navigating to result page */}
       <Dialog
+        id="resultDialog"
         open={stopDialog}
         onClose={() => setStopDialog(false)}
         aria-labelledby="game-stop-dialog-title"
@@ -248,6 +240,7 @@ export default function QuizDiv (props) {
 
         <DialogActions>
           <Button
+            id="resultView"
             autoFocus
             onClick={() => {
               navigate(`/result/qid=${props.quiz.id}/sid=${sessionID}`);
@@ -255,7 +248,11 @@ export default function QuizDiv (props) {
           >
             Yes
           </Button>
-          <Button autoFocus onClick={() => setStopDialog(false)}>
+          <Button
+            id="resultReject"
+            autoFocus
+            onClick={() => setStopDialog(false)}
+          >
             No
           </Button>
         </DialogActions>

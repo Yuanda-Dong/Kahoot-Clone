@@ -64,7 +64,7 @@ export default function QuizEdit () {
       )}
 
       {!loading && (
-        <div id="page" className={styles.pageAlign}>
+        <div id="quizEditPage" className={styles.pageAlign}>
           <TextField
             // fullWidth
             // className={styles.alignLeft}
@@ -74,7 +74,7 @@ export default function QuizEdit () {
             inputProps={{
               className: styles.quizName
             }}
-            id="standard-basic-name"
+            id="quizNameEdit"
             value={quiz.name}
             label="Quiz name: "
             variant="standard"
@@ -88,9 +88,10 @@ export default function QuizEdit () {
             <img src={defaultImage} width={345} alt="Quiz Thumbnail" />
               )}
           <Button
-            aria-description="Button to change thumbnail of the quiz"
+            id="quizImageEdit"
             variant="contained"
             component="label"
+            aria-label="upload"
           >
             Change thumbnail [jpg/jpeg]
             <input
@@ -101,7 +102,8 @@ export default function QuizEdit () {
             />
           </Button>
           <Button
-            aria-description="Button to add a new question"
+            id="newQuestion"
+            aria-label="create"
             className={styles.space}
             variant="outlined"
             onClick={() => {

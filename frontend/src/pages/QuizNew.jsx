@@ -52,6 +52,7 @@ function QuizNew () {
           variant="contained"
           size="large"
           onClick={createQuiz}
+          id="buttonQuizSubmit"
         >
           Create
         </Button>
