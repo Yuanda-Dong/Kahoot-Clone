@@ -16,9 +16,10 @@ import {
   LinearScale,
   CategoryScale,
   PointElement,
-  LineElement
+  LineElement,
+  Legend
 } from 'chart.js';
-Chart.register(LinearScale, CategoryScale, PointElement, LineElement);
+Chart.register(LinearScale, CategoryScale, PointElement, LineElement, Legend);
 // Chart.register(LinearScale, CategoryScale);
 
 export default function Resultcomp ({ sessionID, quizid }) {
