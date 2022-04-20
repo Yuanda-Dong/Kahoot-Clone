@@ -152,6 +152,10 @@ context('Happy Path for App', () => {
         expect(text.text()).to.contain('Options:');
       });
 
+    // check question original name is prefilled
+    cy.get('#questionName').then((name) => {
+      expect(name.val()).to.contain('Question 1');
+    });
     // edit question name
     cy.get('#questionName').clear().focus().type(newName).should('have.value', newName);
     // add new option
