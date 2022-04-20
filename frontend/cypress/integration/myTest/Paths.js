@@ -153,6 +153,7 @@ context('Happy Path for App', () => {
       });
 
     // check question original name is prefilled
+    cy.wait(500);
     cy.get('#questionName').then((name) => {
       expect(name.val()).to.contain('Question 1');
     });
