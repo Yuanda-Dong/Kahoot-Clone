@@ -1,7 +1,6 @@
 import React from 'react';
 import PlayerResult from './components/PlayerResult';
 import { shallow } from 'enzyme';
-import TableContainer from '@mui/material/TableContainer';
 import TableCell from '@mui/material/TableCell';
 describe('PlayerResult', () => {
   it('should have correct player name', () => {
