@@ -16,7 +16,7 @@ describe('Fun', () => {
     const { getByText } = render(<Fun />);
     expect(getByText('Cat Video 2').closest('a')).toHaveAttribute(
       'href',
-      'https://www.youtube.com/watch?v=tpiyEe_CqB4'
+      'https://www.youtube.com/watch?v=5530I_pYjbo'
     );
   });
 
