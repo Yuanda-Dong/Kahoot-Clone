@@ -17,7 +17,7 @@ export default function Fun () {
           <a href="https://www.youtube.com/watch?v=M5PbLfVGOQs">Cat Video 1</a>
         </li>
         <li>
-          <a href="https://www.youtube.com/watch?v=tpiyEe_CqB4">Cat Video 2</a>
+          <a href="https://www.youtube.com/watch?v=5530I_pYjbo">Cat Video 2</a>
         </li>
       </ul>
     </div>

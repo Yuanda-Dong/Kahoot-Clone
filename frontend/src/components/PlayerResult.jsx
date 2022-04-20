@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 export default function PlayerResult ({ result, playerName }) {
+  // console.log(JSON.stringify(result));
+  // console.log(playerName);
   return (
     <>
       <h1>Result for {playerName}</h1>
