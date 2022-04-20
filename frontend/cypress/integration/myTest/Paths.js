@@ -135,12 +135,12 @@ context('Happy Path for App', () => {
     cy.contains('Time Limit : 60 seconds').should('be.visible');
 
     // Edit quiz
-    cy.get('.Style_cardPanel__REyE0').find('button').eq(0).click();
+    cy.get('.Style_cardPanel__REyE0').find('button').eq(1).click();
     // edit question
 
     const newName = 'New Question Name';
     const option = 'New Option';
-    cy.get('.MuiPaper-root').find('button').eq(1).click();
+    cy.get('.MuiPaper-root').find('button').eq(0).click();
     cy.get('h3')
       .first()
       .then((text) => {
@@ -169,7 +169,7 @@ context('Happy Path for App', () => {
     cy.contains(option).should('be.visible');
 
     // delete question
-    cy.get('.MuiPaper-root').find('button').eq(0).click();
+    cy.get('.MuiPaper-root').find('button').eq(1).click();
     cy.contains(newName).should('not.exist');
 
     // Logout
